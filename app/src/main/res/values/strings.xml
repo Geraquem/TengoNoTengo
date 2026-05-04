@@ -5,4 +5,10 @@
     <!-- CONTENT DESCRIPTIONS -->
     <string name="cd_arrow_back">Atrás</string>
 
+    <!-- HOME -->
+    <string name="home_box_my_products">Mis productos</string>
+    <string name="home_box_dont_have">No tengo</string>
+    <string name="home_box_have">Sí tengo</string>
+    <string name="home_box_favorites">Mis favoritos</string>
+
 </resources>

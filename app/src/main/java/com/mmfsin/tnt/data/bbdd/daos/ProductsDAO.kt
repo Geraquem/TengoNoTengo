@@ -13,5 +13,5 @@ interface ProductsDAO {
     fun insertProduct(productDTO: ProductDTO)
 
     @Query("SELECT * FROM table_products")
-    fun getAllProducts()
+    fun getAllProducts(): List<ProductDTO>
 }

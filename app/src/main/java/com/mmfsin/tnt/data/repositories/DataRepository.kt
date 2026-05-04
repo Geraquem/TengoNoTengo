@@ -5,7 +5,8 @@ import com.mmfsin.tnt.domain.models.HomeItem
 import javax.inject.Inject
 
 class DataRepository @Inject constructor() : IDataRepository {
-    override fun getHomeItems(): List<HomeItem> {
-        return emptyList()
+
+    override fun getAllProducts() {
+
     }
 }

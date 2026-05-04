@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TNT</string>
+    <string name="empty"> </string>
+
+    <!-- CONTENT DESCRIPTIONS -->
+    <string name="cd_arrow_back">Atrás</string>
+
+</resources>

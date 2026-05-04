@@ -28,4 +28,8 @@ class MyProductsViewModel @Inject constructor(
             {},
         )
     }
+
+    fun onProductToAddChange(value: String) {
+        _uiState.update { it.copy(productToAdd = value) }
+    }
 }

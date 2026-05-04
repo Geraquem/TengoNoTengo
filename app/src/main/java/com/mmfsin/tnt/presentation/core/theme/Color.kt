@@ -11,7 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val GrayLight = Color(0xFFF5F5F5)
-val GrayMedium = Color(0xFFD9D9D9)
+val GrayMedium = Color(0xFFE8E8E8)
 
 val GreenLight = Color(0xFFBEF5C5)
 val GreenMedium = Color(0xFF58AF63)

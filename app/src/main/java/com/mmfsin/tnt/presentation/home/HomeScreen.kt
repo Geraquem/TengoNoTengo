@@ -34,13 +34,14 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.HomeType
+import com.mmfsin.tnt.domain.usecases.getItems
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPV() {
-    HomeContent(HomeStates()) {}
+    HomeContent(HomeStates(items = getItems())) {}
 }
 
 @Composable
@@ -61,7 +62,6 @@ fun HomeContent(
         topBar = { Toolbar(text = R.string.app_name) }
     ) { innerPadding ->
         Column(Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
-            Spacer(Modifier.height(16.dp))
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 contentPadding = PaddingValues(16.dp),

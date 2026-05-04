@@ -13,5 +13,8 @@
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mis productos</string>
+    <string name="my_products_add_btn">Añadir producto</string>
+    <string name="my_products_advanced_btn">Modo avanzado</string>
+    <string name="my_products_add_product">Añadir producto</string>
 
 </resources>

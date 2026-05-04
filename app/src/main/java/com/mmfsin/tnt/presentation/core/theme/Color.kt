@@ -1,4 +1,4 @@
-package com.mmfsin.oneworld.presentation.core.theme
+package com.mmfsin.tnt.presentation.core.theme
 
 import androidx.compose.ui.graphics.Color
 

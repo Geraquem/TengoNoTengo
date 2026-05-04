@@ -1,4 +1,4 @@
-package com.mmfsin.oneworld.presentation.core.theme
+package com.mmfsin.tnt.presentation.core.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.mmfsin.oneworld.R
+import com.mmfsin.tnt.R
 
 val montserratRegular = FontFamily(
     Font(R.font.montserrat_regular, weight = FontWeight.Normal),

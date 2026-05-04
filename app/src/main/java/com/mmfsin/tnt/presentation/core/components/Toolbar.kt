@@ -2,14 +2,14 @@
 
 package com.mmfsin.tnt.presentation.core.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -35,15 +35,25 @@ fun Toolbar(iconVisible: Boolean = false, text: Int = R.string.empty, onClick: (
             .shadow(
                 elevation = 8.dp,
                 clip = false
-            ).background(Color.White).padding(horizontal = 16.dp),
-        title = { Text(text = stringResource(text)) },
+            ),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White
+        ),
+        title = {
+            Text(
+                text = stringResource(text),
+                modifier = Modifier.padding(start = if (iconVisible) 2.dp else 16.dp)
+            )
+        },
         navigationIcon = {
             if (iconVisible) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_back),
-                    contentDescription = stringResource(R.string.cd_arrow_back),
-                    modifier = Modifier.padding(end = 8.dp).size(30.dp).clickable(onClick = { onClick() })
-                )
+                IconButton(onClick = onClick, modifier = Modifier.padding(start = 0.dp)) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_back),
+                        contentDescription = stringResource(R.string.cd_arrow_back),
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
             }
         }
     )

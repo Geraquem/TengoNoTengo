@@ -33,24 +33,30 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.domain.models.HomeType
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPV() {
-    HomeContent(HomeStates())
+    HomeContent(HomeStates()) {}
 }
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateTo: (HomeType) -> Unit
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(uiState)
+    HomeContent(uiState) { type -> navigateTo(type) }
 }
 
 @Composable
-fun HomeContent(uiState: HomeStates) {
-
+fun HomeContent(
+    uiState: HomeStates,
+    navigateTo: (HomeType) -> Unit
+) {
     Scaffold(
         topBar = { Toolbar(text = R.string.app_name) }
     ) { innerPadding ->
@@ -62,7 +68,7 @@ fun HomeContent(uiState: HomeStates) {
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(uiState.items) { item -> MyBox(item.name) {} }
+                items(uiState.items) { item -> MyBox(item.name) { navigateTo(item.type) } }
             }
         }
     }

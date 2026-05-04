@@ -11,4 +11,7 @@
     <string name="home_box_have">Sí tengo</string>
     <string name="home_box_favorites">Mis favoritos</string>
 
+    <!-- MY PRODUCTS -->
+    <string name="my_products_toolbar">Mis productos</string>
+
 </resources>

@@ -1,12 +1,16 @@
 package com.mmfsin.tnt.data.repositories
 
+import com.mmfsin.tnt.data.bbdd.daos.ProductsDAO
+import com.mmfsin.tnt.data.mappers.toProductList
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
-import com.mmfsin.tnt.domain.models.HomeItem
+import com.mmfsin.tnt.domain.models.Product
 import javax.inject.Inject
 
-class DataRepository @Inject constructor() : IDataRepository {
+class DataRepository @Inject constructor(
+    val productsDao: ProductsDAO
+) : IDataRepository {
 
-    override fun getAllProducts() {
-
+    override fun getAllProducts(): List<Product> {
+        return productsDao.getAllProducts().toProductList()
     }
 }

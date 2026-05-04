@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
-object MyList
+object MyProducts

@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -55,37 +53,21 @@ fun FilterDialog(
             Modifier.fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color.White)
-                .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 8.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 16.dp)
         ) {
             Text(
                 text = stringResource(R.string.filter_dialog_title),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.SemiBold
             )
+
             Spacer(Modifier.height(8.dp))
-            RadioButtonComponent(ALPHABETIC, selected) { selected = it }
-            RadioButtonComponent(FAVORITES_FIRST, selected) { selected = it }
-            RadioButtonComponent(DONT_HAVE_FIRST, selected) { selected = it }
-            RadioButtonComponent(HAVE_FIRST, selected) { selected = it }
-            RadioButtonComponent(LAST_ADDED_FIRST, selected) { selected = it }
 
-            Spacer(Modifier.height(12.dp))
-
-            Row(Modifier.align(Alignment.End), verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = { onDismiss() }) {
-                    Text(
-                        text = stringResource(R.string.filter_dialog_cancel),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-                Spacer(Modifier.width(8.dp))
-                TextButton(onClick = { onConfirm(selected) }) {
-                    Text(
-                        text = stringResource(R.string.filter_dialog_confirm),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            }
+            RadioButtonComponent(ALPHABETIC, selected) { onConfirm(it) }
+            RadioButtonComponent(FAVORITES_FIRST, selected) { onConfirm(it) }
+            RadioButtonComponent(DONT_HAVE_FIRST, selected) { onConfirm(it) }
+            RadioButtonComponent(HAVE_FIRST, selected) { onConfirm(it) }
+            RadioButtonComponent(LAST_ADDED_FIRST, selected) { onConfirm(it) }
         }
     }
 }

@@ -22,7 +22,6 @@ class MyProductsViewModel @Inject constructor(
 ) : BaseViewModel<MyProductsStates>(MyProductsStates()) {
 
     init {
-        getMyProducts()
         getAddProductVisible()
         getActualFilter()
     }
@@ -47,10 +46,8 @@ class MyProductsViewModel @Inject constructor(
         executeUseCase(
             { getActualFilterUseCase() },
             { filter ->
-                println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
-                println("filter ${filter.id}")
-                println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
                 _uiState.update { it.copy(actualFilter = filter) }
+                getMyProducts()
             },
             {}
         )
@@ -81,14 +78,14 @@ class MyProductsViewModel @Inject constructor(
         )
     }
 
-    fun showFilterDialog() = _uiState.update { it.copy(showFilterDialog = !it.showFilterDialog) }
+    fun updateFilterDialogVisibility() = _uiState.update { it.copy(showFilterDialog = !it.showFilterDialog) }
 
     fun updateFilterType(id: Int) {
         executeUseCase(
             { updateFilterUseCase(id) },
             {
+                updateFilterDialogVisibility()
                 getActualFilter()
-                showFilterDialog()
             },
             {}
         )

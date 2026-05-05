@@ -1,5 +1,9 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.mmfsin.tnt.presentation.myproducts
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,10 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.overscroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,7 +62,7 @@ fun MyProductsScreen(viewModel: MyProductsViewModel = hiltViewModel(), goBack: (
         addProduct = { viewModel.addSingleProduct(name = it) },
         updateKeyboardState = { viewModel.updateClearKeyboard() },
         changeAddProductVisibility = { viewModel.changeAddProductVisibility() },
-        showFilterDialog = { viewModel.showFilterDialog() },
+        showFilterDialog = { viewModel.updateFilterDialogVisibility() },
         updateFilterType = { id -> viewModel.updateFilterType(id) }
     )
 }
@@ -109,12 +113,11 @@ fun MyProductsContent(
             } else {
                 Column {
                     uiState.actualFilter?.let { filterType -> ProductFilter(filterType.text) { showFilterDialog() } }
-                    LazyColumn(
-                        modifier = Modifier.overscroll(null),
-                        contentPadding = PaddingValues(bottom = 150.dp),
-                    ) {
-                        uiState.products.forEachIndexed { i, product ->
-                            item { ProductItem(product, i == totalElements) }
+                    CompositionLocalProvider(LocalOverscrollFactory provides null) {
+                        LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
+                            uiState.products.forEachIndexed { i, product ->
+                                item { ProductItem(product, i == totalElements) }
+                            }
                         }
                     }
                 }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,7 +36,6 @@ import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.myproducts.components.AddProduct
 import com.mmfsin.tnt.presentation.myproducts.components.FilterDialog
-import com.mmfsin.tnt.presentation.myproducts.components.ProductFilter
 import com.mmfsin.tnt.presentation.myproducts.components.ProductItem
 import com.mmfsin.tnt.presentation.utils.closeKeyboard
 
@@ -48,7 +46,7 @@ fun MyProductsScreenPV() {
         MyProductsStates(
             products = getExampleProducts(),
             //            products = emptyList(),
-            showFilterDialog = false,
+            filterDialogVisible = false,
             actualFilter = FilterType.DONT_HAVE_FIRST
         ), {}, {}, {}, {},
         {}, {}, {}, { _, _ -> })
@@ -64,7 +62,7 @@ fun MyProductsScreen(viewModel: MyProductsViewModel = hiltViewModel(), goBack: (
         addProduct = { viewModel.addSingleProduct(name = it) },
         updateKeyboardState = { viewModel.updateClearKeyboard() },
         changeAddProductVisibility = { viewModel.changeAddProductVisibility() },
-        showFilterDialog = { viewModel.updateFilterDialogVisibility() },
+        updateFilterDialogVisibility = { viewModel.updateFilterDialogVisibility() },
         updateFilterType = { id -> viewModel.updateFilterType(id) },
         updateHaveItProduct = { id, haveIt -> viewModel.updateHaveProduct(id, haveIt) }
     )
@@ -78,7 +76,7 @@ fun MyProductsContent(
     addProduct: (String) -> Unit,
     updateKeyboardState: () -> Unit,
     changeAddProductVisibility: () -> Unit,
-    showFilterDialog: () -> Unit,
+    updateFilterDialogVisibility: () -> Unit,
     updateFilterType: (Int) -> Unit,
     updateHaveItProduct: (String, Boolean) -> Unit
 ) {
@@ -87,8 +85,11 @@ fun MyProductsContent(
         topBar = {
             Toolbar(
                 text = R.string.my_products_toolbar,
-                iconVisible = true
-            ) { goBack() }
+                iconVisible = true,
+                onBackClick = { goBack() },
+                rightIcon = R.drawable.ic_sort,
+                onRightIconClick = { updateFilterDialogVisibility() }
+            )
         }
     ) { innerPadding ->
 
@@ -97,11 +98,11 @@ fun MyProductsContent(
             updateKeyboardState()
         }
 
-        if (uiState.showFilterDialog) {
+        if (uiState.filterDialogVisible) {
             FilterDialog(
                 actualFilterId = uiState.actualFilter?.id ?: FilterType.ALPHABETIC.id,
                 onConfirm = { id -> updateFilterType(id) },
-                onDismiss = { showFilterDialog() }
+                onDismiss = { updateFilterDialogVisibility() }
             )
         }
 
@@ -113,22 +114,18 @@ fun MyProductsContent(
                     modifier = Modifier.align(Alignment.Center).alpha(0.75f)
                 )
             } else {
-                Column {
-                    uiState.actualFilter?.let { filterType -> ProductFilter(filterType.text) { showFilterDialog() } }
-
-                    CompositionLocalProvider(LocalOverscrollFactory provides null) {
-                        LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
-                            itemsIndexed(
-                                items = uiState.products,
-                                key = { _, p -> p.id }
-                            ) { i, product ->
-                                val lastIndex = uiState.products.lastIndex
-                                ProductItem(
-                                    product = product,
-                                    isLast = i == lastIndex,
-                                    updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) }
-                                )
-                            }
+                CompositionLocalProvider(LocalOverscrollFactory provides null) {
+                    LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
+                        itemsIndexed(
+                            items = uiState.products,
+                            key = { _, p -> p.id }
+                        ) { i, product ->
+                            val lastIndex = uiState.products.lastIndex
+                            ProductItem(
+                                product = product,
+                                isLast = i == lastIndex,
+                                updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) }
+                            )
                         }
                     }
                 }

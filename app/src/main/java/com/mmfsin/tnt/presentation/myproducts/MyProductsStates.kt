@@ -11,6 +11,6 @@ data class MyProductsStates(
 
     val clearKeyboard: Boolean = false,
 
-    val showFilterDialog: Boolean = false,
+    val filterDialogVisible: Boolean = false,
     val actualFilter: FilterType? = null,
 )

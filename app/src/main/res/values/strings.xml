@@ -5,6 +5,7 @@
     <!-- CONTENT DESCRIPTIONS -->
     <string name="cd_arrow_back">Atrás</string>
     <string name="cd_arrow_down">Ocultar/Mostrar</string>
+    <string name="cd_sort">Ordenar</string>
 
     <!-- HOME -->
     <string name="home_box_my_products">Mis productos</string>

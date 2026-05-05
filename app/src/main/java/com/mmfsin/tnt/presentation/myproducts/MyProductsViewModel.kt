@@ -92,7 +92,7 @@ class MyProductsViewModel @Inject constructor(
         )
     }
 
-    fun updateFilterDialogVisibility() = _uiState.update { it.copy(showFilterDialog = !it.showFilterDialog) }
+    fun updateFilterDialogVisibility() = _uiState.update { it.copy(filterDialogVisible = !it.filterDialogVisible) }
 
     fun updateFilterType(id: Int) {
         val newFilter = getFilterById(id)

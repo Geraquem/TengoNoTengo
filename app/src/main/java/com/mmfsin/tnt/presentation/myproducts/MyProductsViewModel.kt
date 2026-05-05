@@ -101,6 +101,7 @@ class MyProductsViewModel @Inject constructor(
             { updateFilterUseCase(id) },
             {
                 filterFlow.value = newFilter
+                _uiState.update { it.copy(actualFilter = newFilter) }
                 updateFilterDialogVisibility()
             },
             {}

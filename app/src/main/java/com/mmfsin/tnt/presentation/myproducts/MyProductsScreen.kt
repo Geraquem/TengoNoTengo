@@ -48,23 +48,32 @@ fun MyProductsScreenPV() {
             //            products = emptyList(),
             filterDialogVisible = false,
             actualFilter = FilterType.DONT_HAVE_FIRST
-        ), {}, {}, {}, {},
-        {}, {}, {}, { _, _ -> })
+        ), {}, {}, {}, {}, {},
+        {}, {}, {}, { _, _ -> },
+        { }
+    )
 }
 
 @Composable
-fun MyProductsScreen(viewModel: MyProductsViewModel = hiltViewModel(), goBack: () -> Unit) {
+fun MyProductsScreen(
+    viewModel: MyProductsViewModel = hiltViewModel(),
+    goBack: () -> Unit,
+    toCreateAdvancedProduct: (String) -> Unit,
+    toProductDetail: (String) -> Unit,
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     MyProductsContent(
         uiState = uiState,
         goBack = goBack,
         onProductToAddChange = { viewModel.onProductToAddChange(it) },
+        createAdvancedProduct = { name -> toCreateAdvancedProduct(name) },
         addProduct = { viewModel.addSingleProduct(name = it) },
         updateKeyboardState = { viewModel.updateClearKeyboard() },
         changeAddProductVisibility = { viewModel.changeAddProductVisibility() },
         updateFilterDialogVisibility = { viewModel.updateFilterDialogVisibility() },
         updateFilterType = { id -> viewModel.updateFilterType(id) },
-        updateHaveItProduct = { id, haveIt -> viewModel.updateHaveProduct(id, haveIt) }
+        updateHaveItProduct = { id, haveIt -> viewModel.updateHaveProduct(id, haveIt) },
+        toProductDetail = { id -> toProductDetail(id) }
     )
 }
 
@@ -73,12 +82,14 @@ fun MyProductsContent(
     uiState: MyProductsStates,
     goBack: () -> Unit,
     onProductToAddChange: (String) -> Unit,
+    createAdvancedProduct: (String) -> Unit,
     addProduct: (String) -> Unit,
     updateKeyboardState: () -> Unit,
     changeAddProductVisibility: () -> Unit,
     updateFilterDialogVisibility: () -> Unit,
     updateFilterType: (Int) -> Unit,
-    updateHaveItProduct: (String, Boolean) -> Unit
+    updateHaveItProduct: (String, Boolean) -> Unit,
+    toProductDetail: (String) -> Unit
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -124,7 +135,8 @@ fun MyProductsContent(
                             ProductItem(
                                 product = product,
                                 isLast = i == lastIndex,
-                                updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) }
+                                updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) },
+                                onProductClick = { id -> toProductDetail(id) }
                             )
                         }
                     }
@@ -134,7 +146,7 @@ fun MyProductsContent(
                 isVisible = uiState.productToAddVisible,
                 product = uiState.productToAdd, onValueChange = { onProductToAddChange(it) },
                 addProduct = { addProduct(it) },
-                advancedMode = {},
+                advancedMode = { name -> createAdvancedProduct(name) },
                 changeVisibility = { changeAddProductVisibility() },
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

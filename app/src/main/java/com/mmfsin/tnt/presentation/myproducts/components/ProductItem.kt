@@ -1,6 +1,7 @@
 package com.mmfsin.tnt.presentation.myproducts.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,13 +43,23 @@ fun ProductItemPV() {
             date = 0
         ),
         isLast = false,
-        { _, _ -> }
+        { _, _ -> },
+        {}
     )
 }
 
 @Composable
-fun ProductItem(product: Product, isLast: Boolean, updateHaveIt: (String, Boolean) -> Unit) {
-    Column(Modifier.fillMaxWidth().background(if (product.favorite) YellowLight else Color.White)) {
+fun ProductItem(
+    product: Product,
+    isLast: Boolean,
+    updateHaveIt: (String, Boolean) -> Unit,
+    onProductClick: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .clickable(onClick = { onProductClick(product.id) })
+            .background(if (product.favorite) YellowLight else Color.White)
+    ) {
         Row(
             modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically

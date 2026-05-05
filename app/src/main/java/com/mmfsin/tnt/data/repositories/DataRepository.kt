@@ -20,4 +20,8 @@ class DataRepository @Inject constructor(
     override fun addSingleProduct(name: String) {
         productsDao.insertProduct(createSingleProduct(name))
     }
+
+    override suspend fun updateHaveIt(productId: String, haveIt: Boolean) {
+        productsDao.updateHaveIt(productId, haveIt)
+    }
 }

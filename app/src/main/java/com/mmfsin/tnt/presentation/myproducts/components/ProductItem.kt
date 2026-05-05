@@ -37,12 +37,13 @@ fun ProductItemPV() {
             whereToFind = null,
             haveIt = true, favorite = true
         ),
-        isLast = false
+        isLast = false,
+        { _, _ -> }
     )
 }
 
 @Composable
-fun ProductItem(product: Product, isLast: Boolean) {
+fun ProductItem(product: Product, isLast: Boolean, updateHaveIt: (String, Boolean) -> Unit) {
     Column(Modifier.fillMaxWidth().background(if (product.favorite) YellowLight else Color.White)) {
         Row(
             modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp),
@@ -83,7 +84,7 @@ fun ProductItem(product: Product, isLast: Boolean) {
                 }
             }
             Spacer(Modifier.width(16.dp))
-            Switch(product.haveIt, onCheckedChange = {})
+            Switch(product.haveIt, onCheckedChange = { updateHaveIt(product.id, it) })
         }
         if (!isLast) {
             Box(Modifier.fillMaxWidth().height(8.dp).background(GrayMedium))

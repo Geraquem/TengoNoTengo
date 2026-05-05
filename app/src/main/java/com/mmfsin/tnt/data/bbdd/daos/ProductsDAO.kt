@@ -14,4 +14,18 @@ interface ProductsDAO {
 
     @Query("SELECT * FROM table_products")
     fun getAllProducts(): List<ProductDTO>
+
+
+    @Query(
+        """
+        UPDATE table_products 
+        SET 
+        haveIt = :haveIt
+        WHERE id = :id
+        """
+    )
+    suspend fun updateHaveIt(
+        id: String,
+        haveIt: Boolean
+    )
 }

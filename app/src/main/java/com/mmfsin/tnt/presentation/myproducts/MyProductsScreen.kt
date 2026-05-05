@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,7 +50,8 @@ fun MyProductsScreenPV() {
             //            products = emptyList(),
             showFilterDialog = false,
             actualFilter = FilterType.DONT_HAVE_FIRST
-        ), {}, {}, {}, {}, {}, {}, {})
+        ), {}, {}, {}, {},
+        {}, {}, {}, { _, _ -> })
 }
 
 @Composable
@@ -63,7 +65,8 @@ fun MyProductsScreen(viewModel: MyProductsViewModel = hiltViewModel(), goBack: (
         updateKeyboardState = { viewModel.updateClearKeyboard() },
         changeAddProductVisibility = { viewModel.changeAddProductVisibility() },
         showFilterDialog = { viewModel.updateFilterDialogVisibility() },
-        updateFilterType = { id -> viewModel.updateFilterType(id) }
+        updateFilterType = { id -> viewModel.updateFilterType(id) },
+        updateHaveItProduct = { id, haveIt -> viewModel.updateHaveProduct(id, haveIt) }
     )
 }
 
@@ -77,6 +80,7 @@ fun MyProductsContent(
     changeAddProductVisibility: () -> Unit,
     showFilterDialog: () -> Unit,
     updateFilterType: (Int) -> Unit,
+    updateHaveItProduct: (String, Boolean) -> Unit
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -87,8 +91,6 @@ fun MyProductsContent(
             ) { goBack() }
         }
     ) { innerPadding ->
-
-        val totalElements = (uiState.products.size - 1)
 
         if (uiState.clearKeyboard) {
             LocalSoftwareKeyboardController.current?.closeKeyboard(LocalFocusManager.current)
@@ -113,10 +115,19 @@ fun MyProductsContent(
             } else {
                 Column {
                     uiState.actualFilter?.let { filterType -> ProductFilter(filterType.text) { showFilterDialog() } }
+
                     CompositionLocalProvider(LocalOverscrollFactory provides null) {
                         LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
-                            uiState.products.forEachIndexed { i, product ->
-                                item { ProductItem(product, i == totalElements) }
+                            itemsIndexed(
+                                items = uiState.products,
+                                key = { _, p -> p.id }
+                            ) { i, product ->
+                                val lastIndex = uiState.products.lastIndex
+                                ProductItem(
+                                    product = product,
+                                    isLast = i == lastIndex,
+                                    updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) }
+                                )
                             }
                         }
                     }

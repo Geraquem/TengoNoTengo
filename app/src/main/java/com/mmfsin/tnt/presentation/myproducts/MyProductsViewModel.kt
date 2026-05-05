@@ -6,6 +6,7 @@ import com.mmfsin.tnt.domain.usecases.GetAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.GetAllProductsUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateFilterUseCase
+import com.mmfsin.tnt.domain.usecases.UpdateHaveProductUseCase
 import com.mmfsin.tnt.presentation.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -19,6 +20,7 @@ class MyProductsViewModel @Inject constructor(
     private val updateAddProductVisibleUseCase: UpdateAddProductVisibleUseCase,
     private val getActualFilterUseCase: GetActualFilterUseCase,
     private val updateFilterUseCase: UpdateFilterUseCase,
+    private val updateHaveProductUseCase: UpdateHaveProductUseCase,
 ) : BaseViewModel<MyProductsStates>(MyProductsStates()) {
 
     init {
@@ -87,6 +89,14 @@ class MyProductsViewModel @Inject constructor(
                 updateFilterDialogVisibility()
                 getActualFilter()
             },
+            {}
+        )
+    }
+
+    fun updateHaveProduct(productId: String, haveIt: Boolean) {
+        executeUseCase(
+            { updateHaveProductUseCase(productId, haveIt) },
+            { /**???????*/ },
             {}
         )
     }

@@ -4,6 +4,7 @@ import com.mmfsin.tnt.domain.models.Product
 
 data class MyProductsStates(
     val products: List<Product> = emptyList(),
-
-    val productToAdd: String = ""
+    val productToAdd: String = "",
+    val productToAddVisible: Boolean = true,
+    val clearKeyboard: Boolean = false
 )

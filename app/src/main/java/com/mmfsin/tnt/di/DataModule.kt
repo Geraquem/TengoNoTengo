@@ -1,6 +1,8 @@
 package com.mmfsin.tnt.di
 
+import com.mmfsin.tnt.data.repositories.ConfigRepository
 import com.mmfsin.tnt.data.repositories.DataRepository
+import com.mmfsin.tnt.domain.interfaces.IConfigRepository
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
 import dagger.Binds
 import dagger.Module
@@ -13,4 +15,7 @@ interface DataModule {
 
     @Binds
     fun bindDataRepository(repository: DataRepository): IDataRepository
+
+    @Binds
+    fun bindConfigRepository(repository: ConfigRepository): IConfigRepository
 }

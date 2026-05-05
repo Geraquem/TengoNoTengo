@@ -12,7 +12,7 @@ data class Product(
 
 fun getExampleProducts() = listOf(
     Product(
-        id = "",
+        id = "id1",
         name = "Producto 1",
         info = null,
         whereToFind = null,
@@ -21,7 +21,7 @@ fun getExampleProducts() = listOf(
         date = 0
     ),
     Product(
-        id = "",
+        id = "id2",
         name = "Producto 2",
         info = "Muy rico en proteína",
         whereToFind = null,
@@ -30,7 +30,7 @@ fun getExampleProducts() = listOf(
         date = 0
     ),
     Product(
-        id = "",
+        id = "id3",
         name = "Producto 3",
         info = null,
         whereToFind = "Mercadona",
@@ -39,7 +39,7 @@ fun getExampleProducts() = listOf(
         date = 0
     ),
     Product(
-        id = "",
+        id = "id4",
         name = "Producto 4",
         info = "A veces me sienta mal",
         whereToFind = "Alcampo",

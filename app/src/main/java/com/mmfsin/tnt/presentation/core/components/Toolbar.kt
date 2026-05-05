@@ -26,7 +26,7 @@ import com.mmfsin.tnt.R
 @Preview
 @Composable
 fun ToolbarPV() {
-    Toolbar(true, R.string.app_name, {}, R.drawable.ic_arrow_back)
+    Toolbar(true, R.string.app_name, {}, R.drawable.ic_sort)
 }
 
 @Composable

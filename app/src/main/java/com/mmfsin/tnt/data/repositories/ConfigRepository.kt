@@ -9,6 +9,8 @@ class ConfigRepository @Inject constructor(
 ) : IConfigRepository {
 
     override fun getAddProductVisible(): Boolean = sharedPrefs.getAddProductVisible()
-
     override fun updateAddProductVisible(visible: Boolean) = sharedPrefs.setAddProductVisible(visible)
+
+    override fun getActualFilter(): Int = sharedPrefs.getActualFilter()
+    override fun updateActualFilter(id: Int) = sharedPrefs.setActualFilter(id)
 }

@@ -1,9 +1,11 @@
 package com.mmfsin.tnt.presentation.myproducts
 
 import com.mmfsin.tnt.domain.usecases.AddSingleProductUseCase
+import com.mmfsin.tnt.domain.usecases.GetActualFilterUseCase
 import com.mmfsin.tnt.domain.usecases.GetAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.GetAllProductsUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateAddProductVisibleUseCase
+import com.mmfsin.tnt.domain.usecases.UpdateFilterUseCase
 import com.mmfsin.tnt.presentation.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -15,11 +17,14 @@ class MyProductsViewModel @Inject constructor(
     private val getAddProductVisibleUseCase: GetAddProductVisibleUseCase,
     private val addSingleProductUseCase: AddSingleProductUseCase,
     private val updateAddProductVisibleUseCase: UpdateAddProductVisibleUseCase,
+    private val getActualFilterUseCase: GetActualFilterUseCase,
+    private val updateFilterUseCase: UpdateFilterUseCase,
 ) : BaseViewModel<MyProductsStates>(MyProductsStates()) {
 
     init {
         getMyProducts()
         getAddProductVisible()
+        getActualFilter()
     }
 
     private fun getMyProducts() {
@@ -34,6 +39,19 @@ class MyProductsViewModel @Inject constructor(
         executeUseCase(
             { getAddProductVisibleUseCase() },
             { visible -> _uiState.update { it.copy(productToAddVisible = visible) } },
+            {}
+        )
+    }
+
+    private fun getActualFilter() {
+        executeUseCase(
+            { getActualFilterUseCase() },
+            { filter ->
+                println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+                println("filter ${filter.id}")
+                println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+                _uiState.update { it.copy(actualFilter = filter) }
+            },
             {}
         )
     }
@@ -59,6 +77,19 @@ class MyProductsViewModel @Inject constructor(
         executeUseCase(
             { updateAddProductVisibleUseCase(!_uiState.value.productToAddVisible) },
             { getAddProductVisible() },
+            {}
+        )
+    }
+
+    fun showFilterDialog() = _uiState.update { it.copy(showFilterDialog = !it.showFilterDialog) }
+
+    fun updateFilterType(id: Int) {
+        executeUseCase(
+            { updateFilterUseCase(id) },
+            {
+                getActualFilter()
+                showFilterDialog()
+            },
             {}
         )
     }

@@ -26,14 +26,14 @@ import com.mmfsin.tnt.presentation.core.theme.GrayMedium
 @Preview
 @Composable
 fun ProductFilterPV() {
-    ProductFilter()
+    ProductFilter(R.string.filter_dialog_favs_first) {}
 }
 
 @Composable
-fun ProductFilter() {
+fun ProductFilter(text: Int, showFilterDialog: () -> Unit) {
     Column(Modifier.fillMaxWidth().background(Color.White)) {
         Row(
-            modifier = Modifier.fillMaxWidth().clickable(onClick = {}).padding(16.dp),
+            modifier = Modifier.fillMaxWidth().clickable(onClick = { showFilterDialog() }).padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -44,7 +44,7 @@ fun ProductFilter() {
             )
             Spacer(Modifier.width(6.dp))
             Text(
-                text = "Favoritos primero",
+                text = stringResource(text),
                 style = MaterialTheme.typography.bodySmall
             )
         }

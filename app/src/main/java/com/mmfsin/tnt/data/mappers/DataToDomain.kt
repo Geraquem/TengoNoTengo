@@ -17,5 +17,6 @@ fun List<ProductDTO>.toProductList() = this.map { it.toProduct() }
 
 fun createSingleProduct(name: String) = ProductDTO(
     id = UUID.randomUUID().toString(),
-    name = name
+    name = name,
+    date = System.currentTimeMillis()
 )

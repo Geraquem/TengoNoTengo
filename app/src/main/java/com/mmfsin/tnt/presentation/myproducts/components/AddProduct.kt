@@ -70,7 +70,10 @@ fun AddProduct(
             .padding(bottom = 28.dp, start = 16.dp, end = 16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     stringResource(R.string.my_products_add_product), style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = 12.dp)
@@ -78,7 +81,7 @@ fun AddProduct(
                 IconButton(onClick = { changeVisibility() }) {
                     Icon(
                         painterResource(R.drawable.ic_arrow_down), stringResource(R.string.cd_arrow_down),
-                        modifier = Modifier.graphicsLayer { scaleY = scaleIcon }
+                        modifier = Modifier.size(16.dp).graphicsLayer { scaleY = scaleIcon }
                     )
                 }
             }

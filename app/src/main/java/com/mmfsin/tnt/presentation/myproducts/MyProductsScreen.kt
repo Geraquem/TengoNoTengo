@@ -26,9 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.domain.models.FilterType
+import com.mmfsin.tnt.domain.models.getExampleProducts
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.myproducts.components.AddProduct
+import com.mmfsin.tnt.presentation.myproducts.components.FilterDialog
 import com.mmfsin.tnt.presentation.myproducts.components.ProductFilter
 import com.mmfsin.tnt.presentation.myproducts.components.ProductItem
 import com.mmfsin.tnt.presentation.utils.closeKeyboard
@@ -38,9 +41,11 @@ import com.mmfsin.tnt.presentation.utils.closeKeyboard
 fun MyProductsScreenPV() {
     MyProductsContent(
         MyProductsStates(
-            //                        products = getExampleProducts()
-            products = emptyList()
-        ), {}, {}, {}, {}, {})
+            products = getExampleProducts(),
+            //            products = emptyList(),
+            showFilterDialog = false,
+            actualFilter = FilterType.DONT_HAVE_FIRST
+        ), {}, {}, {}, {}, {}, {}, {})
 }
 
 @Composable
@@ -52,7 +57,9 @@ fun MyProductsScreen(viewModel: MyProductsViewModel = hiltViewModel(), goBack: (
         onProductToAddChange = { viewModel.onProductToAddChange(it) },
         addProduct = { viewModel.addSingleProduct(name = it) },
         updateKeyboardState = { viewModel.updateClearKeyboard() },
-        changeAddProductVisibility = { viewModel.changeAddProductVisibility() }
+        changeAddProductVisibility = { viewModel.changeAddProductVisibility() },
+        showFilterDialog = { viewModel.showFilterDialog() },
+        updateFilterType = { id -> viewModel.updateFilterType(id) }
     )
 }
 
@@ -63,7 +70,9 @@ fun MyProductsContent(
     onProductToAddChange: (String) -> Unit,
     addProduct: (String) -> Unit,
     updateKeyboardState: () -> Unit,
-    changeAddProductVisibility: () -> Unit
+    changeAddProductVisibility: () -> Unit,
+    showFilterDialog: () -> Unit,
+    updateFilterType: (Int) -> Unit,
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -82,6 +91,14 @@ fun MyProductsContent(
             updateKeyboardState()
         }
 
+        if (uiState.showFilterDialog) {
+            FilterDialog(
+                actualFilterId = uiState.actualFilter?.id ?: FilterType.ALPHABETIC.id,
+                onConfirm = { id -> updateFilterType(id) },
+                onDismiss = { showFilterDialog() }
+            )
+        }
+
         Box(Modifier.fillMaxSize().background(GrayLight).padding(innerPadding)) {
             if (uiState.products.isEmpty()) {
                 Text(
@@ -91,7 +108,7 @@ fun MyProductsContent(
                 )
             } else {
                 Column {
-                    ProductFilter()
+                    uiState.actualFilter?.let { filterType -> ProductFilter(filterType.text) { showFilterDialog() } }
                     LazyColumn(
                         modifier = Modifier.overscroll(null),
                         contentPadding = PaddingValues(bottom = 150.dp),

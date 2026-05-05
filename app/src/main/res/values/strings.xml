@@ -22,10 +22,14 @@
     <string name="my_products_where">Dónde encontrarlo:</string>
     <string name="my_products_sort_by">Ordenar por:</string>
 
-    <string name="my_products_sort_by_alphabet">Orden alfabético</string>
-    <string name="my_products_sort_by_favs_first">Favoritos primero</string>
-    <string name="my_products_sort_by_dont_have_first">No tengo primero</string>
-    <string name="my_products_sort_by_i_have_first">Lo que tengo primero</string>
-    <string name="my_products_sort_by_last_first">Lo último añadido primero</string>
+    <!-- FILTER DIALOG -->
+    <string name="filter_dialog_title">Elige cómo ordenar tus cositas</string>
+    <string name="filter_dialog_alphabet">Orden alfabético</string>
+    <string name="filter_dialog_favs_first">Favoritos primero</string>
+    <string name="filter_dialog_dont_have_first">No tengo primero</string>
+    <string name="filter_dialog_i_have_first">Lo que tengo primero</string>
+    <string name="filter_dialog_last_first">Lo último añadido primero</string>
+    <string name="filter_dialog_cancel">Cancelar</string>
+    <string name="filter_dialog_confirm">Confirmar</string>
 
 </resources>

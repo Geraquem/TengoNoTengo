@@ -59,7 +59,7 @@ fun Toolbar(
                         Icon(
                             painter = painterResource(rightIcon),
                             contentDescription = stringResource(R.string.cd_sort),
-                            modifier = Modifier.size(30.dp)
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 }

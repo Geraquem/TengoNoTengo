@@ -10,7 +10,8 @@ fun ProductDTO.toProduct() = Product(
     info = info,
     whereToFind = whereToFind,
     haveIt = haveIt,
-    favorite = favorite
+    favorite = favorite,
+    date = date
 )
 
 fun List<ProductDTO>.toProductList() = this.map { it.toProduct() }

@@ -7,6 +7,7 @@ data class Product(
     val whereToFind: String?,
     val haveIt: Boolean,
     val favorite: Boolean,
+    val date: Long,
 )
 
 fun getExampleProducts() = listOf(
@@ -17,6 +18,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = true,
         favorite = false,
+        date = 0
     ),
     Product(
         id = "",
@@ -25,6 +27,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = false,
         favorite = false,
+        date = 0
     ),
     Product(
         id = "",
@@ -33,6 +36,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Mercadona",
         haveIt = true,
         favorite = true,
+        date = 0
     ),
     Product(
         id = "",
@@ -41,5 +45,6 @@ fun getExampleProducts() = listOf(
         whereToFind = "Alcampo",
         haveIt = false,
         favorite = false,
+        date = 0
     ),
 )

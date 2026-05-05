@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import com.mmfsin.tnt.data.ProductDTO
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductsDAO {
@@ -13,8 +14,7 @@ interface ProductsDAO {
     fun insertProduct(productDTO: ProductDTO)
 
     @Query("SELECT * FROM table_products")
-    fun getAllProducts(): List<ProductDTO>
-
+    fun getAllProducts(): Flow<List<ProductDTO>>
 
     @Query(
         """

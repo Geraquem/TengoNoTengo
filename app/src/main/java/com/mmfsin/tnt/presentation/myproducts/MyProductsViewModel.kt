@@ -1,5 +1,8 @@
 package com.mmfsin.tnt.presentation.myproducts
 
+import androidx.lifecycle.viewModelScope
+import com.mmfsin.tnt.domain.models.FilterType
+import com.mmfsin.tnt.domain.models.FilterType.Companion.getFilterById
 import com.mmfsin.tnt.domain.usecases.AddSingleProductUseCase
 import com.mmfsin.tnt.domain.usecases.GetActualFilterUseCase
 import com.mmfsin.tnt.domain.usecases.GetAddProductVisibleUseCase
@@ -8,8 +11,12 @@ import com.mmfsin.tnt.domain.usecases.UpdateAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateFilterUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateHaveProductUseCase
 import com.mmfsin.tnt.presentation.core.base.BaseViewModel
+import com.mmfsin.tnt.presentation.utils.sortedByFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,17 +30,23 @@ class MyProductsViewModel @Inject constructor(
     private val updateHaveProductUseCase: UpdateHaveProductUseCase,
 ) : BaseViewModel<MyProductsStates>(MyProductsStates()) {
 
+    private val filterFlow = MutableStateFlow(FilterType.ALPHABETIC)
+
     init {
         getAddProductVisible()
         getActualFilter()
+        observeProducts()
     }
 
-    private fun getMyProducts() {
-        executeUseCase(
-            { getAllProductsUseCase() },
-            { products -> _uiState.update { it.copy(products = products) } },
-            {},
-        )
+    private fun observeProducts() {
+        viewModelScope.launch {
+            combine(
+                getAllProductsUseCase(),
+                filterFlow
+            ) { products, filter ->
+                products.sortedByFilter(filter)
+            }.collect { sortedProducts -> _uiState.update { it.copy(products = sortedProducts) } }
+        }
     }
 
     private fun getAddProductVisible() {
@@ -47,9 +60,9 @@ class MyProductsViewModel @Inject constructor(
     private fun getActualFilter() {
         executeUseCase(
             { getActualFilterUseCase() },
-            { filter ->
-                _uiState.update { it.copy(actualFilter = filter) }
-                getMyProducts()
+            { actualFilter ->
+                filterFlow.value = actualFilter
+                _uiState.update { it.copy(actualFilter = actualFilter) }
             },
             {}
         )
@@ -63,7 +76,6 @@ class MyProductsViewModel @Inject constructor(
         executeUseCase(
             { addSingleProductUseCase(name) },
             {
-                getMyProducts()
                 _uiState.update { it.copy(productToAdd = "", clearKeyboard = true) }
             },
             {}
@@ -83,11 +95,13 @@ class MyProductsViewModel @Inject constructor(
     fun updateFilterDialogVisibility() = _uiState.update { it.copy(showFilterDialog = !it.showFilterDialog) }
 
     fun updateFilterType(id: Int) {
+        val newFilter = getFilterById(id)
+
         executeUseCase(
             { updateFilterUseCase(id) },
             {
+                filterFlow.value = newFilter
                 updateFilterDialogVisibility()
-                getActualFilter()
             },
             {}
         )

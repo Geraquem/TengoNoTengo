@@ -4,19 +4,20 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import com.mmfsin.tnt.data.ProductDTO
 import com.mmfsin.tnt.domain.models.FilterType
+import com.mmfsin.tnt.domain.models.Product
 
 fun SoftwareKeyboardController.closeKeyboard(focusManager: FocusManager) {
     this.hide()
     focusManager.clearFocus()
 }
 
-fun List<ProductDTO>.sortedByFilter(filter: FilterType): List<ProductDTO> {
+fun List<Product>.sortedByFilter(filter: FilterType): List<Product> {
     return when (filter) {
         FilterType.ALPHABETIC -> this.sortedBy { it.name.lowercase() }
 
         FilterType.FAVORITES_FIRST -> {
             this.sortedWith(
-                compareByDescending<ProductDTO> { it.favorite }
+                compareByDescending<Product> { it.favorite }
                     .thenBy { it.name.lowercase() }
             )
         }
@@ -29,6 +30,6 @@ fun List<ProductDTO>.sortedByFilter(filter: FilterType): List<ProductDTO> {
             this
         }
 
-        FilterType.LAST_ADDED_FIRST -> this.sortedByDescending { it.date }
+        FilterType.LAST_ADDED_FIRST -> this.sortedByDescending { it.name }
     }
 }

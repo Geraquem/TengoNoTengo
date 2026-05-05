@@ -33,9 +33,13 @@ import com.mmfsin.tnt.presentation.core.theme.YellowLight
 fun ProductItemPV() {
     ProductItem(
         Product(
-            id = "", name = "Soja texturizada", info = "Muy rico para tener dos",
+            id = "",
+            name = "Soja texturizada",
+            info = "Muy rico para tener dos",
             whereToFind = null,
-            haveIt = true, favorite = true
+            haveIt = true,
+            favorite = true,
+            date = 0
         ),
         isLast = false,
         { _, _ -> }

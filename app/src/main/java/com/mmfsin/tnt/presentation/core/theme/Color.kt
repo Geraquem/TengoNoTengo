@@ -21,3 +21,5 @@ val RedMedium = Color(0xFFC94949)
 
 val OrangeLight = Color(0xFFFCC466)
 val OrangeMedium = Color(0xFFE09C2E)
+
+val YellowLight = Color(0xFFFFFBCE)

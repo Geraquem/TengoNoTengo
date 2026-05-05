@@ -8,8 +8,8 @@ import com.mmfsin.tnt.presentation.utils.TABLE_PRODUCTS
 data class ProductDTO(
     @PrimaryKey val id: String = "",
     val name: String = "",
-    val info: String = "",
-    val whereToFind: String = "",
+    val info: String? = null,
+    val whereToFind: String? = null,
     val haveIt: Boolean = false,
     val favorite: Boolean = false,
 )

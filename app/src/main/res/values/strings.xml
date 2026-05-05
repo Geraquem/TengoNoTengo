@@ -13,8 +13,18 @@
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mis productos</string>
+    <string name="my_products_nothing_added">No hay nada añadido</string>
     <string name="my_products_add_btn">Añadir producto</string>
-    <string name="my_products_advanced_btn">Modo avanzado</string>
+    <string name="my_products_advanced_btn">Más detalles</string>
     <string name="my_products_add_product">Añadir producto</string>
+    <string name="my_products_have_it">¿Lo tengo?</string>
+    <string name="my_products_where">Dónde encontrarlo:</string>
+    <string name="my_products_sort_by">Ordenar por:</string>
+
+    <string name="my_products_sort_by_alphabet">Orden alfabético</string>
+    <string name="my_products_sort_by_favs_first">Favoritos primero</string>
+    <string name="my_products_sort_by_dont_have_first">No tengo primero</string>
+    <string name="my_products_sort_by_i_have_first">Lo que tengo primero</string>
+    <string name="my_products_sort_by_last_first">Lo último añadido primero</string>
 
 </resources>

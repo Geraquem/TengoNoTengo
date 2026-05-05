@@ -1,6 +1,7 @@
 package com.mmfsin.tnt.data.repositories
 
 import com.mmfsin.tnt.data.bbdd.daos.ProductsDAO
+import com.mmfsin.tnt.data.mappers.createSingleProduct
 import com.mmfsin.tnt.data.mappers.toProductList
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
 import com.mmfsin.tnt.domain.models.Product
@@ -12,5 +13,9 @@ class DataRepository @Inject constructor(
 
     override fun getAllProducts(): List<Product> {
         return productsDao.getAllProducts().toProductList()
+    }
+
+    override fun addSingleProduct(name: String) {
+        productsDao.insertProduct(createSingleProduct(name))
     }
 }

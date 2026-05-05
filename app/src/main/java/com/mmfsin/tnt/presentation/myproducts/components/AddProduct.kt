@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmfsin.tnt.R
@@ -31,19 +33,25 @@ import com.mmfsin.tnt.presentation.core.theme.GrayMedium
 @Preview
 @Composable
 fun AddProductPV() {
-    AddProduct("Hola holita vecinito") {}
+    AddProduct("Hola holita vecinito", {}, {}, {})
 }
 
 @Composable
-fun AddProduct(product: String, onValueChange: (String) -> Unit) {
-    Column(Modifier.fillMaxWidth().background(Color.White).padding(top = 6.dp, bottom = 28.dp, start = 16.dp, end = 16.dp)) {
+fun AddProduct(
+    product: String,
+    onValueChange: (String) -> Unit,
+    addProduct: (String) -> Unit,
+    advancedMode: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier.fillMaxWidth().background(Color.White).padding(top = 0.dp, bottom = 28.dp, start = 16.dp, end = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 stringResource(R.string.my_products_add_product), style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(start = 12.dp)
             )
             Spacer(Modifier.weight(1f))
-            TextButton(onClick = {}) {
+            TextButton(onClick = { advancedMode(product) }) {
                 Text(
                     stringResource(R.string.my_products_advanced_btn), style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.SemiBold,
@@ -58,12 +66,16 @@ fun AddProduct(product: String, onValueChange: (String) -> Unit) {
             BasicTextField(
                 value = product, onValueChange = { onValueChange(it) },
                 textStyle = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f).padding(start = 18.dp)
+                modifier = Modifier.weight(1f).padding(start = 18.dp),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Sentences
+                )
             )
 
             Spacer(Modifier.width(2.dp))
 
-            IconButton(onClick = {}) {
+            IconButton(onClick = { addProduct(product) }) {
                 Icon(
                     painterResource(R.drawable.ic_add), stringResource(R.string.my_products_add_btn),
                     modifier = Modifier.size(36.dp)

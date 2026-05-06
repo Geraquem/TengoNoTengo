@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
 @Composable
@@ -45,7 +46,7 @@ fun Toolbar(
                 clip = false
             ),
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.White
+            containerColor = White
         ),
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {

@@ -9,5 +9,6 @@ interface IDataRepository {
 
     fun addSingleProduct(name: String)
     suspend fun updateHaveIt(productId: String, haveIt: Boolean)
+    suspend fun updateFavoriteIt(productId: String, isFavorite: Boolean)
     suspend fun deleteProduct(productId: String)
 }

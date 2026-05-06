@@ -21,8 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,7 +35,6 @@ import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.myproducts.components.AddProduct
 import com.mmfsin.tnt.presentation.myproducts.components.FilterDialog
 import com.mmfsin.tnt.presentation.myproducts.components.ProductItem
-import com.mmfsin.tnt.presentation.utils.closeKeyboard
 
 @Preview
 @Composable
@@ -105,7 +102,8 @@ fun MyProductsContent(
     ) { innerPadding ->
 
         if (uiState.clearKeyboard) {
-            LocalSoftwareKeyboardController.current?.closeKeyboard(LocalFocusManager.current)
+            /** Mejor si no se oculta el teclado */
+            //            LocalSoftwareKeyboardController.current?.closeKeyboard(LocalFocusManager.current)
             updateKeyboardState()
         }
 

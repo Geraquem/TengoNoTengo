@@ -33,6 +33,7 @@ import com.mmfsin.tnt.domain.models.FilterType.DONT_HAVE_FIRST
 import com.mmfsin.tnt.domain.models.FilterType.FAVORITES_FIRST
 import com.mmfsin.tnt.domain.models.FilterType.HAVE_FIRST
 import com.mmfsin.tnt.domain.models.FilterType.LAST_ADDED_FIRST
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
 @Composable
@@ -52,7 +53,7 @@ fun FilterDialog(
         Column(
             Modifier.fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color.White)
+                .background(White)
                 .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 16.dp)
         ) {
             Text(

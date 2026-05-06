@@ -37,6 +37,7 @@ import com.mmfsin.tnt.domain.models.HomeType
 import com.mmfsin.tnt.domain.usecases.getItems
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview(showBackground = true)
 @Composable
@@ -84,7 +85,7 @@ fun MyBox(text: Int, onClick: () -> Unit) {
                 clip = false
             )
             .clip(RoundedCornerShape(24.dp))
-            .background(Color.White)
+            .background(White)
             .clickable(onClick = { onClick() })
             .padding(20.dp),
         contentAlignment = Alignment.Center

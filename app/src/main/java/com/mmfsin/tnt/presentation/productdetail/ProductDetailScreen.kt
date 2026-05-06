@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -24,20 +23,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Product
+import com.mmfsin.tnt.presentation.core.components.SwitchFavorite
+import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
 import com.mmfsin.tnt.presentation.core.components.Toolbar
+import com.mmfsin.tnt.presentation.core.theme.BlueMedium
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.RedMedium
+import com.mmfsin.tnt.presentation.core.theme.White
+import com.mmfsin.tnt.presentation.core.theme.YellowLight
 import com.mmfsin.tnt.presentation.productdetail.components.DeleteProductDialog
 
 @Preview
@@ -54,10 +58,13 @@ fun ProductDetailPV() {
                 favorite = true,
                 date = 0
             ),
-            deleteDialog = true
+            newName = "Soja texturizada",
+            isFavorite = false,
+            haveIt = true,
+            deleteDialog = false
         ),
         {}, {}, {}, {},
-        {}, {},
+        {}, {}, {}, {},
     )
 }
 
@@ -74,7 +81,9 @@ fun ProductDetailScreen(
         whereToChanged = { viewModel.onWhereToChanged(it) },
         infoChanged = { viewModel.onInfoChanged(it) },
         updateDeleteDialogVisibility = { viewModel.updateDeleteDialogVisibility() },
-        deleteProduct = { viewModel.deleteProduct() }
+        deleteProduct = { viewModel.deleteProduct() },
+        updateHaveIt = { viewModel.updateHaveIt(it) },
+        updateFavorite = { viewModel.updateFavorite(it) },
     )
 }
 
@@ -86,12 +95,18 @@ fun ProductDetailContent(
     whereToChanged: (String) -> Unit,
     infoChanged: (String) -> Unit,
     updateDeleteDialogVisibility: () -> Unit,
-    deleteProduct: () -> Unit
+    deleteProduct: () -> Unit,
+    updateHaveIt: (Boolean) -> Unit,
+    updateFavorite: (Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = { Toolbar(iconVisible = true, onBackClick = { goBack() }) }
     ) { innerPadding ->
         Box(Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
+
+            if (uiState.sww) {
+                /** ERROR */
+            }
 
             if (uiState.finishAndGoBack) goBack()
 
@@ -107,17 +122,30 @@ fun ProductDetailContent(
                 modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 20.dp)
             ) {
                 TitleText(R.string.product_detail_name)
-                EditableText(uiState.newName, { nameChanged(it) })
+                MainEditableText(
+                    uiState.newName, { nameChanged(it) },
+                    isFav = uiState.isFavorite
+                )
 
                 Spacer(Modifier.height(16.dp))
 
-                SwitchBox(R.string.product_detail_have_it, checked = uiState.haveIt)
+                SwitchBox(
+                    text = R.string.product_detail_have_it,
+                    checked = uiState.haveIt,
+                    updateState = { updateHaveIt(it) },
+                    isFav = false
+                )
 
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(8.dp))
 
-                SwitchBox(R.string.product_detail_favorite, checked = uiState.isFavorite)
+                SwitchBox(
+                    text = R.string.product_detail_favorite,
+                    checked = uiState.isFavorite,
+                    updateState = { updateFavorite(it) },
+                    isFav = true
+                )
 
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(32.dp))
 
                 TitleText(R.string.product_detail_where)
                 EditableText(text = uiState.newWhereTo, { whereToChanged(it) })
@@ -148,7 +176,7 @@ fun ProductDetailContent(
                         Text(
                             stringResource(R.string.product_detail_save),
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color.Blue,
+                            color = BlueMedium,
                             fontWeight = FontWeight.SemiBold
                         )
                     }
@@ -163,9 +191,29 @@ fun ProductDetailContent(
 fun TitleText(text: Int) {
     Text(
         text = stringResource(text),
-        style = MaterialTheme.typography.bodyLarge,
+        style = MaterialTheme.typography.bodySmall,
         fontWeight = FontWeight.SemiBold,
         modifier = Modifier.fillMaxWidth().padding(start = 8.dp, bottom = 4.dp)
+    )
+}
+
+@Composable
+fun MainEditableText(
+    text: String,
+    onValueChange: (String) -> Unit,
+    isFav: Boolean
+) {
+    BasicTextField(
+        value = text, onValueChange = { onValueChange(it) },
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+            .background(if (isFav) YellowLight else White)
+            .padding(horizontal = 12.dp, vertical = 16.dp),
+        textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            capitalization = KeyboardCapitalization.Sentences
+        ),
     )
 }
 
@@ -173,11 +221,11 @@ fun TitleText(text: Int) {
 fun EditableText(
     text: String,
     onValueChange: (String) -> Unit,
-    maxLines: Int = 1
+    maxLines: Int = 1,
 ) {
     BasicTextField(
         value = text, onValueChange = { onValueChange(it) },
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color.White).padding(12.dp),
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(White).padding(12.dp),
         textStyle = MaterialTheme.typography.bodyLarge,
         maxLines = maxLines,
         keyboardOptions = KeyboardOptions(
@@ -188,16 +236,19 @@ fun EditableText(
 }
 
 @Composable
-fun SwitchBox(text: Int, checked: Boolean) {
+fun SwitchBox(text: Int, checked: Boolean, updateState: (Boolean) -> Unit, isFav: Boolean = false) {
     Row(
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color.White).padding(12.dp),
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+            .background(White).padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             stringResource(text),
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            fontWeight = FontWeight.SemiBold
         )
-        Switch(checked, onCheckedChange = {})
+        if (isFav) SwitchFavorite(checked, onCheckedChange = { updateState(it) })
+        else SwitchHaveIt(checked, onCheckedChange = { updateState(it) })
     }
 }

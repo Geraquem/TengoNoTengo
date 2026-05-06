@@ -35,7 +35,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.presentation.core.theme.BlueMedium
 import com.mmfsin.tnt.presentation.core.theme.GrayMedium
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
 @Composable
@@ -65,7 +67,7 @@ fun AddProduct(
 
     Column(
         modifier = modifier.fillMaxWidth()
-            .background(Color.White)
+            .background(White)
             .animateContentSize()
             .padding(bottom = 28.dp, start = 16.dp, end = 16.dp)
     ) {
@@ -94,7 +96,7 @@ fun AddProduct(
                     Text(
                         stringResource(R.string.my_products_advanced_btn), style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color.Blue
+                        color = BlueMedium
                     )
                 }
             }

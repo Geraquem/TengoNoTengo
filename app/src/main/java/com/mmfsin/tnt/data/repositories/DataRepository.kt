@@ -30,6 +30,10 @@ class DataRepository @Inject constructor(
         productsDao.updateHaveIt(productId, haveIt)
     }
 
+    override suspend fun updateFavoriteIt(productId: String, isFavorite: Boolean) {
+        productsDao.updateFavorite(productId, isFavorite)
+    }
+
     override suspend fun deleteProduct(productId: String) {
         productsDao.deleteProductById(productId)
     }

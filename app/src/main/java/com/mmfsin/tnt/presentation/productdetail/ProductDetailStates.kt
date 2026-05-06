@@ -5,6 +5,7 @@ import com.mmfsin.tnt.domain.models.Product
 data class ProductDetailStates(
     val product: Product? = null,
 
+    val productId: String = "",
     val newName: String = "",
     val newInfo: String = "",
     val newWhereTo: String = "",
@@ -13,4 +14,6 @@ data class ProductDetailStates(
 
     val deleteDialog: Boolean = false,
     val finishAndGoBack: Boolean = false,
+
+    val sww: Boolean = false,
 )

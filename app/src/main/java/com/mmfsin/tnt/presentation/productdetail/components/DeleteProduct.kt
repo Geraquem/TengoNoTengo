@@ -23,7 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.presentation.core.theme.BlueMedium
 import com.mmfsin.tnt.presentation.core.theme.RedMedium
+import com.mmfsin.tnt.presentation.core.theme.White
 import com.mmfsin.tnt.presentation.utils.middleBoldText
 
 @Preview
@@ -36,7 +38,7 @@ fun DeleteProductDialogPV() {
 fun DeleteProductDialog(productName: String, onCancel: () -> Unit, onConfirm: () -> Unit) {
     Dialog(onDismissRequest = { onCancel() }) {
         Column(
-            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color.White)
+            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(White)
                 .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 8.dp)
         ) {
             Text(
@@ -54,7 +56,7 @@ fun DeleteProductDialog(productName: String, onCancel: () -> Unit, onConfirm: ()
                     Text(
                         stringResource(R.string.delete_product_cancel),
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Blue,
+                        color = BlueMedium,
                         fontWeight = FontWeight.SemiBold
                     )
                 }

@@ -7,9 +7,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Composable
-fun StatusBarColor(color: Color = Color.White, darkIcons: Boolean = true) {
+fun StatusBarColor(color: Color = White, darkIcons: Boolean = true) {
     val view = LocalView.current
     SideEffect {
         val window = (view.context as Activity).window

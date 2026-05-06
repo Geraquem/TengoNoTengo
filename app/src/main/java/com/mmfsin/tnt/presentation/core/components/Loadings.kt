@@ -13,15 +13,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mmfsin.tnt.presentation.core.theme.BlueMedium
+import com.mmfsin.tnt.presentation.core.theme.White
 
 //@Preview
 @Composable
 fun LoadingFullScreen() {
-    Box(Modifier.fillMaxSize().background(Color.White), contentAlignment = Alignment.Center) {
+    Box(Modifier.fillMaxSize().background(White), contentAlignment = Alignment.Center) {
         CircularProgressIndicator(
             Modifier.size(64.dp),
             strokeWidth = 6.dp,
-            color = Color.Blue,
+            color = BlueMedium,
             strokeCap = StrokeCap.Round
         )
     }
@@ -34,7 +36,7 @@ fun MiniLoading() {
         CircularProgressIndicator(
             Modifier.size(40.dp),
             strokeWidth = 6.dp,
-            color = Color.Blue,
+            color = BlueMedium,
             strokeCap = StrokeCap.Round
         )
     }

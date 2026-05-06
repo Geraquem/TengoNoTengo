@@ -12,12 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -26,7 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Product
+import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
 import com.mmfsin.tnt.presentation.core.theme.GrayMedium
+import com.mmfsin.tnt.presentation.core.theme.White
 import com.mmfsin.tnt.presentation.core.theme.YellowLight
 
 @Preview
@@ -58,7 +58,7 @@ fun ProductItem(
     Column(
         modifier = Modifier.fillMaxWidth()
             .clickable(onClick = { onProductClick(product.id) })
-            .background(if (product.favorite) YellowLight else Color.White)
+            .background(if (product.favorite) YellowLight else White)
     ) {
         Row(
             modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp),
@@ -99,7 +99,7 @@ fun ProductItem(
                 }
             }
             Spacer(Modifier.width(16.dp))
-            Switch(product.haveIt, onCheckedChange = { updateHaveIt(product.id, it) })
+            SwitchHaveIt(product.haveIt, onCheckedChange = { updateHaveIt(product.id, it) })
         }
         if (!isLast) {
             Box(Modifier.fillMaxWidth().height(8.dp).background(GrayMedium))

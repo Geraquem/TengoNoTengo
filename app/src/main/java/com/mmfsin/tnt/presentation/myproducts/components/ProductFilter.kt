@@ -21,7 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.presentation.core.theme.BlueMedium
 import com.mmfsin.tnt.presentation.core.theme.GrayMedium
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
 @Composable
@@ -31,7 +33,7 @@ fun ProductFilterPV() {
 
 @Composable
 fun ProductFilter(text: Int, showFilterDialog: () -> Unit) {
-    Column(Modifier.fillMaxWidth().background(Color.White)) {
+    Column(Modifier.fillMaxWidth().background(White)) {
         Row(
             modifier = Modifier.fillMaxWidth().clickable(onClick = { showFilterDialog() }).padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -40,7 +42,7 @@ fun ProductFilter(text: Int, showFilterDialog: () -> Unit) {
                 text = stringResource(R.string.my_products_sort_by),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.Blue
+                color = BlueMedium
             )
             Spacer(Modifier.width(6.dp))
             Text(

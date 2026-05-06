@@ -32,6 +32,19 @@ interface ProductsDAO {
         haveIt: Boolean
     )
 
+    @Query(
+        """
+        UPDATE table_products 
+        SET 
+        favorite = :isFavorite
+        WHERE id = :id
+        """
+    )
+    suspend fun updateFavorite(
+        id: String,
+        isFavorite: Boolean
+    )
+
     @Query("DELETE FROM table_products WHERE id = :id")
     suspend fun deleteProductById(id: String)
 }

@@ -3,6 +3,7 @@ package com.mmfsin.tnt.data.repositories
 import com.mmfsin.tnt.data.bbdd.daos.ProductsDAO
 import com.mmfsin.tnt.data.mappers.createSingleProduct
 import com.mmfsin.tnt.data.mappers.toProduct
+import com.mmfsin.tnt.data.mappers.toProductDTO
 import com.mmfsin.tnt.data.mappers.toProductList
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
 import com.mmfsin.tnt.domain.models.Product
@@ -24,6 +25,21 @@ class DataRepository @Inject constructor(
 
     override fun addSingleProduct(name: String) {
         productsDao.insertProduct(createSingleProduct(name))
+    }
+
+    override fun addAdvancedProduct(product: Product) {
+        productsDao.insertProduct(product.toProductDTO())
+    }
+
+    override suspend fun updateProduct(product: Product) {
+        productsDao.updateProduct(
+            id = product.id,
+            name = product.name,
+            info = product.info,
+            whereTo = product.whereToFind,
+            haveIt = product.haveIt,
+            favorite = product.favorite
+        )
     }
 
     override suspend fun updateHaveIt(productId: String, haveIt: Boolean) {

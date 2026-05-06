@@ -23,6 +23,27 @@ interface ProductsDAO {
         """
         UPDATE table_products 
         SET 
+        name = :name,
+        info= :info,
+        whereToFind = :whereTo,
+        haveIt = :haveIt,
+        favorite = :favorite
+        WHERE id = :id
+        """
+    )
+    suspend fun updateProduct(
+        id: String,
+        name: String,
+        info: String?,
+        whereTo: String?,
+        haveIt: Boolean,
+        favorite: Boolean
+    )
+
+    @Query(
+        """
+        UPDATE table_products 
+        SET 
         haveIt = :haveIt
         WHERE id = :id
         """

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.WindowCompat
 import com.mmfsin.tnt.presentation.core.navigation.NavigationWrapper
 import com.mmfsin.tnt.presentation.core.theme.TNTTheme
 import dagger.hilt.android.AndroidEntryPoint

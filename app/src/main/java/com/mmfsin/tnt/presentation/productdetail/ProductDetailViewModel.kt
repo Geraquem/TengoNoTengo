@@ -1,10 +1,12 @@
 package com.mmfsin.tnt.presentation.productdetail
 
 import androidx.lifecycle.SavedStateHandle
+import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.domain.usecases.DeleteProductUseCase
 import com.mmfsin.tnt.domain.usecases.GetProductByIdUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateFavoriteProductUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateHaveProductUseCase
+import com.mmfsin.tnt.domain.usecases.UpdateProductUseCase
 import com.mmfsin.tnt.presentation.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -17,6 +19,7 @@ class ProductDetailViewModel @Inject constructor(
     private val deleteProductUseCase: DeleteProductUseCase,
     private val updateHaveProductUseCase: UpdateHaveProductUseCase,
     private val updateFavoriteProductUseCase: UpdateFavoriteProductUseCase,
+    private val updateProductUseCase: UpdateProductUseCase,
 ) : BaseViewModel<ProductDetailStates>(ProductDetailStates()) {
 
     private val productId: String? = savedStateHandle["id"]
@@ -63,7 +66,7 @@ class ProductDetailViewModel @Inject constructor(
         )
     }
 
-    fun updateHaveIt(value:Boolean) {
+    fun updateHaveIt(value: Boolean) {
         val state = _uiState.value
         executeUseCase(
             { updateHaveProductUseCase(state.productId, value) },
@@ -72,12 +75,34 @@ class ProductDetailViewModel @Inject constructor(
         )
     }
 
-    fun updateFavorite(value:Boolean) {
+    fun updateFavorite(value: Boolean) {
         val state = _uiState.value
         executeUseCase(
             { updateFavoriteProductUseCase(state.productId, value) },
             { _uiState.update { it.copy(isFavorite = !it.isFavorite) } },
             {}
         )
+    }
+
+    fun saveAndUpdateProduct() {
+        val states = _uiState.value
+        if (productId == null) sww()
+        else {
+            val newProduct = Product(
+                id = productId,
+                name = states.newName,
+                info = states.newInfo.ifEmpty { null },
+                whereToFind = states.newWhereTo.ifEmpty { null },
+                haveIt = states.haveIt,
+                favorite = states.isFavorite,
+                date = states.product?.date ?: 0
+            )
+
+            executeUseCase(
+                { updateProductUseCase(newProduct) },
+                { _uiState.update { it.copy(finishAndGoBack = true) } },
+                {}
+            )
+        }
     }
 }

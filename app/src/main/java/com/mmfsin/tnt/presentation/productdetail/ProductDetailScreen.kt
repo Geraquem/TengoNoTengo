@@ -6,20 +6,28 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -63,7 +71,7 @@ fun ProductDetailPV() {
             haveIt = true,
             deleteDialog = false
         ),
-        {}, {}, {}, {},
+        {}, {}, {}, {}, {},
         {}, {}, {}, {},
     )
 }
@@ -84,6 +92,7 @@ fun ProductDetailScreen(
         deleteProduct = { viewModel.deleteProduct() },
         updateHaveIt = { viewModel.updateHaveIt(it) },
         updateFavorite = { viewModel.updateFavorite(it) },
+        saveAndUpdateProduct = { viewModel.saveAndUpdateProduct() }
     )
 }
 
@@ -98,11 +107,18 @@ fun ProductDetailContent(
     deleteProduct: () -> Unit,
     updateHaveIt: (Boolean) -> Unit,
     updateFavorite: (Boolean) -> Unit,
+    saveAndUpdateProduct: () -> Unit
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = { Toolbar(iconVisible = true, onBackClick = { goBack() }) }
     ) { innerPadding ->
-        Box(Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
+        Box(
+            Modifier.fillMaxSize()
+                .padding(innerPadding)
+                .background(GrayLight)
+                .windowInsetsPadding(WindowInsets.ime)
+        ) {
 
             if (uiState.sww) {
                 /** ERROR */
@@ -119,7 +135,10 @@ fun ProductDetailContent(
             }
 
             Column(
-                modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 20.dp).padding(bottom = 80.dp)
             ) {
                 TitleText(R.string.product_detail_name)
                 MainEditableText(
@@ -153,9 +172,10 @@ fun ProductDetailContent(
                 Spacer(Modifier.height(16.dp))
 
                 TitleText(R.string.product_detail_info)
+
                 EditableText(text = uiState.newInfo, { infoChanged(it) }, maxLines = 20)
 
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.height(32.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -172,7 +192,7 @@ fun ProductDetailContent(
 
                     Spacer(Modifier.width(24.dp))
 
-                    TextButton(onClick = {}) {
+                    TextButton(onClick = { saveAndUpdateProduct() }) {
                         Text(
                             stringResource(R.string.product_detail_save),
                             style = MaterialTheme.typography.bodyLarge,
@@ -181,7 +201,6 @@ fun ProductDetailContent(
                         )
                     }
                 }
-
             }
         }
     }
@@ -223,9 +242,16 @@ fun EditableText(
     onValueChange: (String) -> Unit,
     maxLines: Int = 1,
 ) {
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val scope = rememberCoroutineScope()
+
     BasicTextField(
         value = text, onValueChange = { onValueChange(it) },
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(White).padding(12.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(White)
+            .padding(12.dp),
         textStyle = MaterialTheme.typography.bodyLarge,
         maxLines = maxLines,
         keyboardOptions = KeyboardOptions(

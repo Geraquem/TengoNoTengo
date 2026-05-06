@@ -42,7 +42,7 @@ fun Toolbar(
         modifier = Modifier
             .zIndex(1f)
             .shadow(
-                elevation = 8.dp,
+                elevation = 4.dp,
                 clip = false
             ),
         colors = TopAppBarDefaults.topAppBarColors(

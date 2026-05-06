@@ -37,7 +37,7 @@ fun ProductItemPV() {
             id = "",
             name = "Soja texturizada",
             info = "Muy rico para tener dos",
-            whereToFind = null,
+            whereToFind = "Mercadona",
             haveIt = true,
             favorite = true,
             date = 0

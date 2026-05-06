@@ -2,6 +2,7 @@ package com.mmfsin.tnt.data.repositories
 
 import com.mmfsin.tnt.data.bbdd.daos.ProductsDAO
 import com.mmfsin.tnt.data.mappers.createSingleProduct
+import com.mmfsin.tnt.data.mappers.toProduct
 import com.mmfsin.tnt.data.mappers.toProductList
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
 import com.mmfsin.tnt.domain.models.Product
@@ -17,11 +18,19 @@ class DataRepository @Inject constructor(
         return productsDao.getAllProducts().map { list -> list.toProductList() }
     }
 
+    override fun getProductById(id: String): Product? {
+        return productsDao.getProductById(id)?.toProduct()
+    }
+
     override fun addSingleProduct(name: String) {
         productsDao.insertProduct(createSingleProduct(name))
     }
 
     override suspend fun updateHaveIt(productId: String, haveIt: Boolean) {
         productsDao.updateHaveIt(productId, haveIt)
+    }
+
+    override suspend fun deleteProduct(productId: String) {
+        productsDao.deleteProductById(productId)
     }
 }

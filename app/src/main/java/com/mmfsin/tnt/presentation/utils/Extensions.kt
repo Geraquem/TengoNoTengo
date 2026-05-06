@@ -1,7 +1,14 @@
 package com.mmfsin.tnt.presentation.utils
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import com.mmfsin.tnt.domain.models.FilterType
 import com.mmfsin.tnt.domain.models.Product
 
@@ -36,5 +43,14 @@ fun List<Product>.sortedByFilter(filter: FilterType): List<Product> {
         }
 
         FilterType.LAST_ADDED_FIRST -> this.sortedByDescending { it.name }
+    }
+}
+
+@Composable
+fun middleBoldText(strRef: Int, middleText: String): AnnotatedString {
+    return buildAnnotatedString {
+        append(stringResource(strRef).substringBefore("%s"))
+        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(middleText) }
+        append(stringResource(strRef).substringAfter("%s"))
     }
 }

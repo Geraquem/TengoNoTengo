@@ -33,4 +33,17 @@
     <string name="filter_dialog_cancel">Cancelar</string>
     <string name="filter_dialog_confirm">Confirmar</string>
 
+    <!-- PRODUCT DETAIL -->
+    <string name="product_detail_name">Nombre del producto</string>
+    <string name="product_detail_where">¿Dónde se compra?</string>
+    <string name="product_detail_info">Más información</string>
+    <string name="product_detail_favorite">Hacer favorito</string>
+    <string name="product_detail_have_it">Lo tengo</string>
+    <string name="product_detail_save">Guardar</string>
+    <string name="product_detail_delete">Eliminar</string>
+
+    <string name="delete_product">¿Quieres eliminar %s de tu lista de productos?</string>
+    <string name="delete_product_confirm">Eliminar</string>
+    <string name="delete_product_cancel">Cancelar</string>
+
 </resources>

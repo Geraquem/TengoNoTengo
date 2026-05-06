@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.mmfsin.tnt.domain.models.HomeType
 import com.mmfsin.tnt.presentation.home.HomeScreen
 import com.mmfsin.tnt.presentation.myproducts.MyProductsScreen
@@ -38,10 +37,9 @@ fun NavigationWrapper() {
         }
 
         composable<ProductDetail> { data ->
-            val info: ProductDetail = data.toRoute()
+            /** internamente procesa data y se lo pasa al viewmodel */
             ProductDetailScreen(
                 goBack = { navController.popBackStack() },
-                productId = info.id,
             )
         }
     }

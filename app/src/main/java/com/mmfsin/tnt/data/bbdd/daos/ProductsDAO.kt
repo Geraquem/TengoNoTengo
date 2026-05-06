@@ -16,6 +16,9 @@ interface ProductsDAO {
     @Query("SELECT * FROM table_products")
     fun getAllProducts(): Flow<List<ProductDTO>>
 
+    @Query("SELECT * FROM table_products WHERE id = :id LIMIT 1")
+    fun getProductById(id: String): ProductDTO?
+
     @Query(
         """
         UPDATE table_products 
@@ -28,4 +31,7 @@ interface ProductsDAO {
         id: String,
         haveIt: Boolean
     )
+
+    @Query("DELETE FROM table_products WHERE id = :id")
+    suspend fun deleteProductById(id: String)
 }

@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,7 +59,7 @@ fun HomeContent(
     navigateTo: (HomeType) -> Unit
 ) {
     Scaffold(
-        topBar = { Toolbar(text = R.string.app_name) }
+        topBar = { Toolbar(text = R.string.app_name, iconBackVisible = false) }
     ) { innerPadding ->
         Column(Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
             LazyVerticalGrid(

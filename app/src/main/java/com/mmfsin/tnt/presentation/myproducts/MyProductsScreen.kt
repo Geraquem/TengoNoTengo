@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -93,7 +93,6 @@ fun MyProductsContent(
         topBar = {
             Toolbar(
                 text = R.string.my_products_toolbar,
-                iconVisible = true,
                 onBackClick = { goBack() },
                 rightIcon = R.drawable.ic_sort,
                 onRightIconClick = { updateFilterDialogVisibility() }
@@ -125,14 +124,12 @@ fun MyProductsContent(
             } else {
                 CompositionLocalProvider(LocalOverscrollFactory provides null) {
                     LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
-                        itemsIndexed(
+                        items(
                             items = uiState.products,
-                            key = { _, p -> p.id }
-                        ) { i, product ->
-                            val lastIndex = uiState.products.lastIndex
+                            key = { it.id }
+                        ) { product ->
                             ProductItem(
                                 product = product,
-                                isLast = i == lastIndex,
                                 updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) },
                                 onProductClick = { id -> toProductDetail(id) }
                             )
@@ -144,7 +141,10 @@ fun MyProductsContent(
                 isVisible = uiState.productToAddVisible,
                 product = uiState.productToAdd, onValueChange = { onProductToAddChange(it) },
                 addProduct = { addProduct(it) },
-                advancedMode = { name -> createAdvancedProduct(name) },
+                advancedMode = { name ->
+                    onProductToAddChange("")
+                    createAdvancedProduct(name)
+                },
                 changeVisibility = { changeAddProductVisibility() },
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

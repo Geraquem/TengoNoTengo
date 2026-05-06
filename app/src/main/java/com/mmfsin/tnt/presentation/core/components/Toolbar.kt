@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,13 +26,13 @@ import com.mmfsin.tnt.presentation.core.theme.White
 @Preview
 @Composable
 fun ToolbarPV() {
-    Toolbar(true, R.string.app_name, {}, R.drawable.ic_sort)
+    Toolbar(text = R.string.app_name, onBackClick = {}, rightIcon = R.drawable.ic_sort, iconBackVisible = true, onRightIconClick = {})
 }
 
 @Composable
 fun Toolbar(
-    iconVisible: Boolean = false,
     text: Int = R.string.empty,
+    iconBackVisible: Boolean = true,
     onBackClick: () -> Unit = {},
     rightIcon: Int? = null,
     onRightIconClick: () -> Unit = {},
@@ -52,7 +51,7 @@ fun Toolbar(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(text),
-                    modifier = Modifier.weight(1f).padding(start = if (iconVisible) 2.dp else 16.dp)
+                    modifier = Modifier.weight(1f).padding(start = if (iconBackVisible) 2.dp else 16.dp)
                 )
 
                 if (rightIcon != null) {
@@ -68,7 +67,7 @@ fun Toolbar(
         },
 
         navigationIcon = {
-            if (iconVisible) {
+            if (iconBackVisible) {
                 IconButton(onClick = onBackClick, modifier = Modifier.padding(start = 0.dp)) {
                     Icon(
                         painter = painterResource(R.drawable.ic_arrow_back),

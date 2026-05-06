@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
-import com.mmfsin.tnt.presentation.core.theme.GrayMedium
+import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.White
 import com.mmfsin.tnt.presentation.core.theme.YellowLight
 
@@ -39,10 +39,9 @@ fun ProductItemPV() {
             info = "Muy rico para tener dos",
             whereToFind = "Mercadona",
             haveIt = true,
-            favorite = true,
+            favorite = false,
             date = 0
         ),
-        isLast = false,
         { _, _ -> },
         {}
     )
@@ -51,7 +50,6 @@ fun ProductItemPV() {
 @Composable
 fun ProductItem(
     product: Product,
-    isLast: Boolean,
     updateHaveIt: (String, Boolean) -> Unit,
     onProductClick: (String) -> Unit
 ) {
@@ -60,6 +58,8 @@ fun ProductItem(
             .clickable(onClick = { onProductClick(product.id) })
             .background(if (product.favorite) YellowLight else White)
     ) {
+        Box(Modifier.fillMaxWidth().height(8.dp).background(GrayLight))
+
         Row(
             modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -100,9 +100,6 @@ fun ProductItem(
             }
             Spacer(Modifier.width(16.dp))
             SwitchHaveIt(product.haveIt, onCheckedChange = { updateHaveIt(product.id, it) })
-        }
-        if (!isLast) {
-            Box(Modifier.fillMaxWidth().height(8.dp).background(GrayMedium))
         }
     }
 }

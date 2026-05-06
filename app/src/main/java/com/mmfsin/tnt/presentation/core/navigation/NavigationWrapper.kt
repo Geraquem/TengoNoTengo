@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mmfsin.tnt.domain.models.HomeType
+import com.mmfsin.tnt.presentation.createProduct.CreateAdvancedProductScreen
 import com.mmfsin.tnt.presentation.home.HomeScreen
 import com.mmfsin.tnt.presentation.myproducts.MyProductsScreen
 import com.mmfsin.tnt.presentation.productdetail.ProductDetailScreen
@@ -32,13 +33,20 @@ fun NavigationWrapper() {
             MyProductsScreen(
                 goBack = { navController.popBackStack() },
                 toProductDetail = { id -> navController.navigate(ProductDetail(id)) },
-                toCreateAdvancedProduct = {}
+                toCreateAdvancedProduct = { name -> navController.navigate(CreateAdvancedProduct(name)) }
             )
         }
 
         composable<ProductDetail> { data ->
             /** internamente procesa data y se lo pasa al viewmodel */
             ProductDetailScreen(
+                goBack = { navController.popBackStack() },
+            )
+        }
+
+        composable<CreateAdvancedProduct> { data ->
+            /** internamente procesa data y se lo pasa al viewmodel */
+            CreateAdvancedProductScreen(
                 goBack = { navController.popBackStack() },
             )
         }

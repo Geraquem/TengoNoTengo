@@ -1,5 +1,6 @@
 package com.mmfsin.tnt.presentation.productdetail
 
+import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -25,9 +25,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -111,7 +110,7 @@ fun ProductDetailContent(
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
-        topBar = { Toolbar(iconVisible = true, onBackClick = { goBack() }) }
+        topBar = { Toolbar(onBackClick = { goBack() }) }
     ) { innerPadding ->
         Box(
             Modifier.fillMaxSize()
@@ -133,72 +132,73 @@ fun ProductDetailContent(
                     onConfirm = { deleteProduct() }
                 )
             }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 20.dp).padding(bottom = 80.dp)
-            ) {
-                TitleText(R.string.product_detail_name)
-                MainEditableText(
-                    uiState.newName, { nameChanged(it) },
-                    isFav = uiState.isFavorite
-                )
-
-                Spacer(Modifier.height(16.dp))
-
-                SwitchBox(
-                    text = R.string.product_detail_have_it,
-                    checked = uiState.haveIt,
-                    updateState = { updateHaveIt(it) },
-                    isFav = false
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                SwitchBox(
-                    text = R.string.product_detail_favorite,
-                    checked = uiState.isFavorite,
-                    updateState = { updateFavorite(it) },
-                    isFav = true
-                )
-
-                Spacer(Modifier.height(32.dp))
-
-                TitleText(R.string.product_detail_where)
-                EditableText(text = uiState.newWhereTo, { whereToChanged(it) })
-
-                Spacer(Modifier.height(16.dp))
-
-                TitleText(R.string.product_detail_info)
-
-                EditableText(text = uiState.newInfo, { infoChanged(it) }, maxLines = 20)
-
-                Spacer(Modifier.height(32.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+            CompositionLocalProvider(LocalOverscrollFactory provides null) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 16.dp, vertical = 20.dp).padding(bottom = 80.dp)
                 ) {
-                    TextButton(onClick = { updateDeleteDialogVisibility() }) {
-                        Text(
-                            stringResource(R.string.product_detail_delete),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = RedMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
+                    TitleText(R.string.product_detail_name)
+                    MainEditableText(
+                        uiState.newName, { nameChanged(it) },
+                        isFav = uiState.isFavorite
+                    )
 
-                    Spacer(Modifier.width(24.dp))
+                    Spacer(Modifier.height(16.dp))
 
-                    TextButton(onClick = { saveAndUpdateProduct() }) {
-                        Text(
-                            stringResource(R.string.product_detail_save),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = BlueMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                    SwitchBox(
+                        text = R.string.product_detail_have_it,
+                        checked = uiState.haveIt,
+                        updateState = { updateHaveIt(it) },
+                        isFav = false
+                    )
+
+                    Spacer(Modifier.height(8.dp))
+
+                    SwitchBox(
+                        text = R.string.product_detail_favorite,
+                        checked = uiState.isFavorite,
+                        updateState = { updateFavorite(it) },
+                        isFav = true
+                    )
+
+                    Spacer(Modifier.height(32.dp))
+
+                    TitleText(R.string.product_detail_where)
+                    EditableText(text = uiState.newWhereTo, { whereToChanged(it) })
+
+                    Spacer(Modifier.height(16.dp))
+
+                    TitleText(R.string.product_detail_info)
+
+                    EditableText(text = uiState.newInfo, { infoChanged(it) }, maxLines = 20)
+
+                    Spacer(Modifier.height(32.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        TextButton(onClick = { updateDeleteDialogVisibility() }) {
+                            Text(
+                                stringResource(R.string.product_detail_delete),
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = RedMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                        Spacer(Modifier.width(24.dp))
+
+                        TextButton(onClick = { saveAndUpdateProduct() }) {
+                            Text(
+                                stringResource(R.string.product_detail_save),
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = BlueMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
                     }
                 }
             }
@@ -230,7 +230,7 @@ fun MainEditableText(
         textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
         maxLines = 1,
         keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Next,
+            imeAction = ImeAction.Done,
             capitalization = KeyboardCapitalization.Sentences
         ),
     )
@@ -242,9 +242,6 @@ fun EditableText(
     onValueChange: (String) -> Unit,
     maxLines: Int = 1,
 ) {
-    val bringIntoViewRequester = remember { BringIntoViewRequester() }
-    val scope = rememberCoroutineScope()
-
     BasicTextField(
         value = text, onValueChange = { onValueChange(it) },
         modifier = Modifier
@@ -255,7 +252,7 @@ fun EditableText(
         textStyle = MaterialTheme.typography.bodyLarge,
         maxLines = maxLines,
         keyboardOptions = KeyboardOptions(
-            imeAction = if (maxLines == 1) ImeAction.Next else ImeAction.None,
+            imeAction = if (maxLines == 1) ImeAction.Done else ImeAction.None,
             capitalization = KeyboardCapitalization.Sentences
         ),
     )

@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategories
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
@@ -33,7 +34,7 @@ fun ProductDetailPV() {
                 whereToFind = "",
                 haveIt = false,
                 favorite = true,
-                category = null,
+                category = getCategoryById(0),
                 date = 0
             ),
             newName = "Soja texturizada",

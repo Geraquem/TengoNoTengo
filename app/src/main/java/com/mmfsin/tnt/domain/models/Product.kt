@@ -1,5 +1,7 @@
 package com.mmfsin.tnt.domain.models
 
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getNoneCategory
 import java.util.UUID
 
 data class Product(
@@ -9,7 +11,7 @@ data class Product(
     val whereToFind: String?,
     val haveIt: Boolean,
     val favorite: Boolean,
-    val category: Category?,
+    val category: Category,
     val date: Long,
 )
 
@@ -20,7 +22,7 @@ fun createEmptyProduct() = Product(
     whereToFind = null,
     haveIt = false,
     favorite = false,
-    category = null,
+    category = getNoneCategory(),
     date = System.nanoTime()
 )
 
@@ -32,7 +34,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = true,
         favorite = false,
-        category = null,
+        category = getCategoryById(2),
         date = 0
     ),
     Product(
@@ -42,7 +44,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = false,
         favorite = false,
-        category = null,
+        category = getCategoryById(2),
         date = 0
     ),
     Product(
@@ -52,7 +54,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Mercadona",
         haveIt = true,
         favorite = true,
-        category = null,
+        category = getCategoryById(2),
         date = 0
     ),
     Product(
@@ -62,7 +64,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Alcampo",
         haveIt = false,
         favorite = false,
-        category = null,
+        category = getCategoryById(1),
         date = 0
     ),
 )

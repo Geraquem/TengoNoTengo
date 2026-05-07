@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategories
-import com.mmfsin.tnt.domain.models.CategoryType.Companion.selectNoneCategory
 import com.mmfsin.tnt.domain.models.CategoryType.FRUITS
 import com.mmfsin.tnt.presentation.core.components.SwitchFavorite
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
@@ -100,7 +99,7 @@ fun ProductDetailData(
     updateFavorite: (Boolean) -> Unit,
 
     categories: List<Category>,
-    category: Category?,
+    category: Category,
     categoriesState: Boolean,
     updateCategory: (Int) -> Unit,
     updateCategoriesState: () -> Unit,
@@ -165,15 +164,14 @@ fun ProductDetailData(
                         label = ""
                     )
 
-                    val mCategory = category ?: selectNoneCategory()
                     Icon(
-                        painterResource(mCategory.icon), null,
-                        tint = mCategory.color
+                        painterResource(category.icon), null,
+                        tint = category.color
                     )
                     Spacer(Modifier.width(6.dp))
                     Text(
                         modifier = Modifier.weight(1f),
-                        text = stringResource(mCategory.name),
+                        text = stringResource(category.name),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Icon(

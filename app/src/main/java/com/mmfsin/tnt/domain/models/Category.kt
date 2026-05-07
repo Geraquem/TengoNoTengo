@@ -42,7 +42,7 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int, val c
     );
 
     companion object {
-        fun selectNoneCategory(): Category = NONE.toCategory()
+        fun getNoneCategory(): Category = NONE.toCategory()
         fun getCategories(): List<Category> = entries.toCategoryList()
         fun getCategoryById(id: Int): Category = (entries.firstOrNull { it.id == id } ?: NONE).toCategory()
     }

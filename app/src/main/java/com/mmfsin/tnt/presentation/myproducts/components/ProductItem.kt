@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -23,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
+import com.mmfsin.tnt.domain.models.CategoryType.NONE
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
@@ -40,7 +44,7 @@ fun ProductItemPV() {
             whereToFind = "Mercadona",
             haveIt = true,
             favorite = false,
-            category = null,
+            category = getCategoryById(1),
             date = 0
         ),
         { _, _ -> },
@@ -54,27 +58,35 @@ fun ProductItem(
     updateHaveIt: (String, Boolean) -> Unit,
     onProductClick: (String) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .clickable(onClick = { onProductClick(product.id) })
-            .background(if (product.favorite) YellowLight else White)
-    ) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Box(Modifier.fillMaxWidth().height(8.dp).background(GrayLight))
 
         Row(
-            modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp),
+            modifier = Modifier.clickable(onClick = { onProductClick(product.id) })
+                .background(if (product.favorite) YellowLight else White)
+                .padding(vertical = 12.dp, horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp,
-                )
+                Row(verticalAlignment = Alignment.Top) {
+                    if (product.category.type != NONE) {
+                        Icon(
+                            painter = painterResource(product.category.icon), null,
+                            modifier = Modifier.padding(end = 6.dp),
+                            tint = product.category.color
+                        )
+                    }
+                    Text(
+                        text = product.name,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                    )
+                }
+
                 product.whereToFind?.let { wtf ->
                     Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -91,6 +103,7 @@ fun ProductItem(
                         )
                     }
                 }
+
                 product.info?.let { info ->
                     Text(
                         text = info,

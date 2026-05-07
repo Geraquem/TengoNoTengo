@@ -111,7 +111,7 @@ class MyProductsViewModel @Inject constructor(
     fun updateHaveProduct(productId: String, haveIt: Boolean) {
         executeUseCase(
             { updateHaveProductUseCase(productId, haveIt) },
-            { /**???????*/ },
+            { },
             {}
         )
     }

@@ -1,6 +1,7 @@
 package com.mmfsin.tnt.presentation.productdetail
 
 import com.mmfsin.tnt.domain.models.Category
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getNoneCategory
 import com.mmfsin.tnt.domain.models.Product
 
 data class ProductDetailStates(
@@ -12,7 +13,7 @@ data class ProductDetailStates(
     val newWhereToFind: String = "",
     val newHaveIt: Boolean = false,
     val newFavorite: Boolean = false,
-    val newCategory: Category? = null,
+    val newCategory: Category = getNoneCategory(),
 
     val categories: List<Category> = emptyList(),
     val categoriesState: Boolean = false,

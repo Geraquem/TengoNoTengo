@@ -12,5 +12,6 @@ data class ProductDTO(
     val whereToFind: String? = null,
     val haveIt: Boolean = false,
     val favorite: Boolean = false,
+    val categoryId: Int = 0,
     val date: Long = 0,
 )

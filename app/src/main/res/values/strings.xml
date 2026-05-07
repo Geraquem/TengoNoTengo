@@ -36,6 +36,7 @@
     <!-- PRODUCT DETAIL -->
     <string name="product_detail_name">Nombre del producto</string>
     <string name="product_detail_where">¿Dónde se compra?</string>
+    <string name="product_detail_category">Categoría</string>
     <string name="product_detail_info">Más información</string>
     <string name="product_detail_favorite">Hacer favorito</string>
     <string name="product_detail_have_it">Lo tengo</string>
@@ -45,5 +46,11 @@
     <string name="delete_product">¿Quieres eliminar %s de tu lista de productos?</string>
     <string name="delete_product_confirm">Eliminar</string>
     <string name="delete_product_cancel">Cancelar</string>
+
+    <!-- CATEGORIES -->
+    <string name="category_none">Sin categoría</string>
+    <string name="category_fruits">Frutas</string>
+    <string name="category_vegetables">Verduras</string>
+    <string name="category_meat">Carne</string>
 
 </resources>

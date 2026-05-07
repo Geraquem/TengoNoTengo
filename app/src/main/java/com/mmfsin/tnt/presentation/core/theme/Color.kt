@@ -12,6 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val Black = Color.Black
 val White = Color.White
+val Transparent =  Color(0x00FFFFFF)
 
 val GrayLight = Color(0xFFF5F5F5)
 val GrayMedium = Color(0xFFE8E8E8)

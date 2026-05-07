@@ -66,6 +66,19 @@ interface ProductsDAO {
         isFavorite: Boolean
     )
 
+    @Query(
+        """
+        UPDATE table_products 
+        SET 
+        categoryId = :categoryId
+        WHERE id = :id
+        """
+    )
+    suspend fun updateCategory(
+        id: String,
+        categoryId: Int
+    )
+
     @Query("DELETE FROM table_products WHERE id = :id")
     suspend fun deleteProductById(id: String)
 }

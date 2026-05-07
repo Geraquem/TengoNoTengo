@@ -10,5 +10,6 @@ fun Product.toProductDTO() = ProductDTO(
     whereToFind = whereToFind,
     haveIt = haveIt,
     favorite = favorite,
+    categoryId = category?.id ?: 0,
     date = date
 )

@@ -1,6 +1,7 @@
 package com.mmfsin.tnt.data.mappers
 
 import com.mmfsin.tnt.data.ProductDTO
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
 import com.mmfsin.tnt.domain.models.Product
 import java.util.UUID
 
@@ -11,6 +12,7 @@ fun ProductDTO.toProduct() = Product(
     whereToFind = whereToFind,
     haveIt = haveIt,
     favorite = favorite,
+    category = getCategoryById(categoryId),
     date = date
 )
 

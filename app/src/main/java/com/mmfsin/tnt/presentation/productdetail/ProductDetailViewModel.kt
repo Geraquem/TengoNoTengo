@@ -1,9 +1,11 @@
 package com.mmfsin.tnt.presentation.productdetail
 
 import androidx.lifecycle.SavedStateHandle
-import com.mmfsin.tnt.domain.models.Product
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
 import com.mmfsin.tnt.domain.usecases.DeleteProductUseCase
+import com.mmfsin.tnt.domain.usecases.GetCategoriesUseCase
 import com.mmfsin.tnt.domain.usecases.GetProductByIdUseCase
+import com.mmfsin.tnt.domain.usecases.UpdateCategoryUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateFavoriteProductUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateHaveProductUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateProductUseCase
@@ -20,12 +22,15 @@ class ProductDetailViewModel @Inject constructor(
     private val updateHaveProductUseCase: UpdateHaveProductUseCase,
     private val updateFavoriteProductUseCase: UpdateFavoriteProductUseCase,
     private val updateProductUseCase: UpdateProductUseCase,
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val updateCategoryUseCase: UpdateCategoryUseCase
 ) : BaseViewModel<ProductDetailStates>(ProductDetailStates()) {
 
     private val productId: String? = savedStateHandle["id"]
 
     init {
         getProductById()
+        getCategories()
     }
 
     fun sww() = _uiState.update { it.copy(sww = true) }
@@ -36,24 +41,33 @@ class ProductDetailViewModel @Inject constructor(
                 if (product == null) sww()
                 else _uiState.update {
                     it.copy(
-                        product = product,
+                        oldProduct = product,
                         productId = product.id,
                         newName = product.name,
-                        newWhereTo = product.whereToFind ?: "",
+                        newWhereToFind = product.whereToFind ?: "",
                         newInfo = product.info ?: "",
-                        haveIt = product.haveIt,
-                        isFavorite = product.favorite,
+                        newHaveIt = product.haveIt,
+                        newFavorite = product.favorite,
                     )
                 }
             }, { sww() })
         } ?: run { sww() }
     }
 
+    private fun getCategories() {
+        executeUseCase(
+            { getCategoriesUseCase() },
+            { categories -> _uiState.update { it.copy(categories = categories) } },
+            {}
+        )
+    }
+
     fun onNameChanged(value: String) = _uiState.update { it.copy(newName = value) }
-    fun onWhereToChanged(value: String) = _uiState.update { it.copy(newWhereTo = value) }
+    fun onWhereToFindChanged(value: String) = _uiState.update { it.copy(newWhereToFind = value) }
     fun onInfoChanged(value: String) = _uiState.update { it.copy(newInfo = value) }
 
     fun updateDeleteDialogVisibility() = _uiState.update { it.copy(deleteDialog = !it.deleteDialog) }
+    fun updateCategoriesState() = _uiState.update { it.copy(categoriesState = !it.categoriesState) }
 
     fun deleteProduct() {
         executeUseCase(
@@ -70,7 +84,7 @@ class ProductDetailViewModel @Inject constructor(
         val state = _uiState.value
         executeUseCase(
             { updateHaveProductUseCase(state.productId, value) },
-            { _uiState.update { it.copy(haveIt = !it.haveIt) } },
+            { _uiState.update { it.copy(newHaveIt = !it.newHaveIt) } },
             {}
         )
     }
@@ -79,30 +93,39 @@ class ProductDetailViewModel @Inject constructor(
         val state = _uiState.value
         executeUseCase(
             { updateFavoriteProductUseCase(state.productId, value) },
-            { _uiState.update { it.copy(isFavorite = !it.isFavorite) } },
+            { _uiState.update { it.copy(newFavorite = !it.newFavorite) } },
+            {}
+        )
+    }
+
+    fun updateCategory(value: Int) {
+        val state = _uiState.value
+        executeUseCase(
+            { updateCategoryUseCase(state.productId, value) },
+            {
+                _uiState.update { it.copy(newCategory = getCategoryById(value)) }
+                updateCategoriesState()
+            },
             {}
         )
     }
 
     fun saveAndUpdateProduct() {
+        val originalProduct = _uiState.value.oldProduct ?: return sww()
         val states = _uiState.value
-        if (productId == null) sww()
-        else {
-            val newProduct = Product(
-                id = productId,
-                name = states.newName,
-                info = states.newInfo.ifEmpty { null },
-                whereToFind = states.newWhereTo.ifEmpty { null },
-                haveIt = states.haveIt,
-                favorite = states.isFavorite,
-                date = states.product?.date ?: 0
-            )
 
-            executeUseCase(
-                { updateProductUseCase(newProduct) },
-                { _uiState.update { it.copy(finishAndGoBack = true) } },
-                {}
-            )
-        }
+        val updatedProduct = originalProduct.copy(
+            name = states.newName,
+            info = states.newInfo.ifEmpty { null },
+            whereToFind = states.newWhereToFind.ifEmpty { null },
+            haveIt = states.newHaveIt,
+            favorite = states.newFavorite
+        )
+
+        executeUseCase(
+            { updateProductUseCase(updatedProduct) },
+            { _uiState.update { it.copy(finishAndGoBack = true) } },
+            {}
+        )
     }
 }

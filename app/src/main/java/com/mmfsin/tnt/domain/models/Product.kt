@@ -1,5 +1,7 @@
 package com.mmfsin.tnt.domain.models
 
+import java.util.UUID
+
 data class Product(
     val id: String,
     val name: String,
@@ -7,7 +9,19 @@ data class Product(
     val whereToFind: String?,
     val haveIt: Boolean,
     val favorite: Boolean,
+    val category: Category?,
     val date: Long,
+)
+
+fun createEmptyProduct() = Product(
+    id = UUID.randomUUID().toString(),
+    name = "",
+    info = null,
+    whereToFind = null,
+    haveIt = false,
+    favorite = false,
+    category = null,
+    date = System.nanoTime()
 )
 
 fun getExampleProducts() = listOf(
@@ -18,6 +32,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = true,
         favorite = false,
+        category = null,
         date = 0
     ),
     Product(
@@ -27,6 +42,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = false,
         favorite = false,
+        category = null,
         date = 0
     ),
     Product(
@@ -36,6 +52,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Mercadona",
         haveIt = true,
         favorite = true,
+        category = null,
         date = 0
     ),
     Product(
@@ -45,6 +62,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Alcampo",
         haveIt = false,
         favorite = false,
+        category = null,
         date = 0
     ),
 )

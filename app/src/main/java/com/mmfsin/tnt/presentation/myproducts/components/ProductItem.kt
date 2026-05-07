@@ -40,6 +40,7 @@ fun ProductItemPV() {
             whereToFind = "Mercadona",
             haveIt = true,
             favorite = false,
+            category = null,
             date = 0
         ),
         { _, _ -> },

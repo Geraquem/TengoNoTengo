@@ -48,6 +48,7 @@ class ProductDetailViewModel @Inject constructor(
                         newInfo = product.info ?: "",
                         newHaveIt = product.haveIt,
                         newFavorite = product.favorite,
+                        newCategory = product.category
                     )
                 }
             }, { sww() })
@@ -119,7 +120,8 @@ class ProductDetailViewModel @Inject constructor(
             info = states.newInfo.ifEmpty { null },
             whereToFind = states.newWhereToFind.ifEmpty { null },
             haveIt = states.newHaveIt,
-            favorite = states.newFavorite
+            favorite = states.newFavorite,
+            category = states.newCategory
         )
 
         executeUseCase(

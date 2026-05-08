@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
-import com.mmfsin.tnt.domain.models.CategoryType.NONE
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
@@ -72,9 +71,9 @@ fun ProductItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Row(verticalAlignment = Alignment.Top) {
-                    if (product.category.type != NONE) {
+                    product.category.icon?.let { icon ->
                         Icon(
-                            painter = painterResource(product.category.icon), null,
+                            painter = painterResource(icon), null,
                             modifier = Modifier.padding(end = 6.dp),
                             tint = product.category.color
                         )

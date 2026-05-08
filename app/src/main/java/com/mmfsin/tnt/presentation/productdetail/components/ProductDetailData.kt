@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategories
-import com.mmfsin.tnt.domain.models.CategoryType.FRUITS
+import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
 import com.mmfsin.tnt.presentation.core.components.SwitchFavorite
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
 import com.mmfsin.tnt.presentation.core.theme.BlueMedium
@@ -71,7 +71,7 @@ fun ProductDetailDataPV() {
         false,
         {},
         getCategories(),
-        Category(0, R.string.category_fruits, R.drawable.ic_arrow_down, RedMedium, FRUITS),
+        category = getCategoryById(15),
         true,
         {},
         {},
@@ -164,11 +164,13 @@ fun ProductDetailData(
                         label = ""
                     )
 
-                    Icon(
-                        painterResource(category.icon), null,
-                        tint = category.color
-                    )
-                    Spacer(Modifier.width(6.dp))
+                    category.icon?.let { icon ->
+                        Icon(
+                            painterResource(icon), null,
+                            tint = category.color
+                        )
+                        Spacer(Modifier.width(6.dp))
+                    }
                     Text(
                         modifier = Modifier.weight(1f),
                         text = stringResource(category.name),
@@ -323,11 +325,13 @@ fun CategoryItem(category: Category, onClick: (Int) -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    painterResource(category.icon), stringResource(category.name),
-                    tint = category.color
-                )
-                Spacer(Modifier.width(8.dp))
+                category.icon?.let { icon ->
+                    Icon(
+                        painterResource(icon), stringResource(category.name),
+                        tint = category.color
+                    )
+                    Spacer(Modifier.width(8.dp))
+                }
                 Text(
                     modifier = Modifier.weight(1f),
                     text = stringResource(category.name),

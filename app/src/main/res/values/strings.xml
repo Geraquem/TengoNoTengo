@@ -49,8 +49,32 @@
 
     <!-- CATEGORIES -->
     <string name="category_none">Sin categoría</string>
-    <string name="category_fruits">Frutas</string>
-    <string name="category_vegetables">Verduras</string>
+    <string name="category_snacks">Aperitivos</string>
+    <string name="category_basics">Básicos</string>
+    <string name="category_drinks">Bebidas</string>
+    <string name="category_bakery">Bollería</string>
     <string name="category_meat">Carne</string>
+    <string name="category_cereals">Cereales</string>
+    <string name="category_frozen">Congelados</string>
+    <string name="category_caprichos">Caprichos</string>
+    <string name="category_breakfast">Desayuno</string>
+    <string name="category_cold_cuts">Embutidos</string>
+    <string name="category_spices">Especias</string>
+    <string name="category_fruit">Fruta</string>
+    <string name="category_nuts">Frutos secos</string>
+    <string name="category_dairy">Lácteos</string>
+    <string name="category_legumes">Legumbres</string>
+    <string name="category_bread">Pan</string>
+    <string name="category_pasta">Pasta</string>
+    <string name="category_fish">Pescado</string>
+    <string name="category_desserts">Postres</string>
+    <string name="category_cheese">Quesos</string>
+    <string name="category_sauces">Salsas</string>
+    <string name="category_gluten_free">Sin gluten</string>
+    <string name="category_lactose_free">Sin lactosa</string>
+    <string name="category_soups_and_creams">Sopas y cremas</string>
+    <string name="category_vegan">Vegano</string>
+    <string name="category_vegetarian">Vegetariano</string>
+    <string name="category_vegetables">Verdura</string>
 
 </resources>

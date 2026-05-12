@@ -30,6 +30,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.FilterType
 import com.mmfsin.tnt.domain.models.getExampleProducts
+import com.mmfsin.tnt.presentation.core.components.LoadingFullScreen
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.myproducts.components.AddProduct
@@ -41,6 +42,7 @@ import com.mmfsin.tnt.presentation.myproducts.components.ProductItem
 fun MyProductsScreenPV() {
     MyProductsContent(
         MyProductsStates(
+            isLoading = true,
             products = getExampleProducts(),
             //            products = emptyList(),
             filterDialogVisible = false,
@@ -151,5 +153,7 @@ fun MyProductsContent(
                     .imePadding()
             )
         }
+
+        if (uiState.isLoading) LoadingFullScreen()
     }
 }

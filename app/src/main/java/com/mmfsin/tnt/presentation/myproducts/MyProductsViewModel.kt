@@ -33,9 +33,14 @@ class MyProductsViewModel @Inject constructor(
     private val filterFlow = MutableStateFlow(FilterType.ALPHABETIC)
 
     init {
+        showLoading()
         getAddProductVisible()
         getActualFilter()
         observeProducts()
+    }
+
+    private fun showLoading() {
+        _uiState.update { it.copy(isLoading = true) }
     }
 
     private fun observeProducts() {
@@ -45,7 +50,14 @@ class MyProductsViewModel @Inject constructor(
                 filterFlow
             ) { products, filter ->
                 products.sortedByFilter(filter)
-            }.collect { sortedProducts -> _uiState.update { it.copy(products = sortedProducts) } }
+            }.collect { sortedProducts ->
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        products = sortedProducts
+                    )
+                }
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import com.mmfsin.tnt.domain.models.FilterType
 import com.mmfsin.tnt.domain.models.Product
 
 data class MyProductsStates(
+    val isLoading: Boolean = false,
+
     val products: List<Product> = emptyList(),
 
     val productToAdd: String = "",

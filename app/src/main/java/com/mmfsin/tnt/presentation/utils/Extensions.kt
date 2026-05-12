@@ -43,6 +43,13 @@ fun List<Product>.sortedByFilter(filter: FilterType): List<Product> {
         }
 
         FilterType.LAST_ADDED_FIRST -> this.sortedByDescending { it.name }
+
+        FilterType.BY_CATEGORY -> {
+            this.sortedWith(
+                compareBy<Product> { it.category.id }
+                    .thenBy { it.name.lowercase() }
+            )
+        }
     }
 }
 

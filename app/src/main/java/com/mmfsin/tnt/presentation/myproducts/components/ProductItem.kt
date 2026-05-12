@@ -74,7 +74,7 @@ fun ProductItem(
                     product.category.icon?.let { icon ->
                         Icon(
                             painter = painterResource(icon), null,
-                            modifier = Modifier.padding(end = 6.dp),
+                            modifier = Modifier.padding(end = 8.dp),
                             tint = product.category.color
                         )
                     }

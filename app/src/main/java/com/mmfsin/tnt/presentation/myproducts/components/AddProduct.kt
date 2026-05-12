@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -118,7 +117,7 @@ fun AddProduct(
 
                 Spacer(Modifier.width(2.dp))
 
-                IconButton(onClick = { addProduct(product) }) {
+                IconButton(onClick = { if (product.isNotBlank()) addProduct(product) }) {
                     Icon(
                         painterResource(R.drawable.ic_add), stringResource(R.string.my_products_add_btn),
                         modifier = Modifier.size(36.dp)

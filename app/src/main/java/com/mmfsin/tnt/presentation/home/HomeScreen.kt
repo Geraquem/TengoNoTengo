@@ -5,15 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -61,29 +59,83 @@ fun HomeContent(
     Scaffold(
         topBar = { Toolbar(text = R.string.app_name, iconBackVisible = false) }
     ) { innerPadding ->
-        Column(Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+        Box(modifier = Modifier.fillMaxSize().padding(innerPadding).background(GrayLight)) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(16.dp).background(GrayLight)
             ) {
-                items(uiState.items) { item -> MyBox(item.name) { navigateTo(item.type) } }
+
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                        .shadow(
+                            elevation = 4.dp,
+                            shape = RoundedCornerShape(16.dp),
+                            clip = false
+                        )
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable(onClick = {navigateTo(HomeType.MY_PRODUCTS)})
+                        .background(White)
+                        .padding(horizontal = 16.dp, vertical = 42.dp)
+                ) {
+                    Text("Mis cositas")
+                }
+
+                Spacer(Modifier.height(24.dp))
+
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    MyBox(
+                        modifier = Modifier.weight(1f),
+                        text = R.string.app_name,
+                        onClick = {})
+
+                    Spacer(Modifier.width(16.dp))
+
+                    MyBox(
+                        modifier = Modifier.weight(1f),
+                        text = R.string.app_name,
+                        onClick = {})
+                }
+
+                Spacer(Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    MyBox(
+                        modifier = Modifier.weight(1f),
+                        text = R.string.app_name,
+                        onClick = {})
+
+                    Spacer(Modifier.width(16.dp))
+
+                    MyBox(
+                        modifier = Modifier.weight(1f),
+                        text = R.string.app_name,
+                        onClick = {})
+                }
             }
         }
     }
 }
 
 @Composable
-fun MyBox(text: Int, onClick: () -> Unit) {
+fun MyBox(
+    modifier: Modifier,
+    text: Int,
+    onClick: () -> Unit
+) {
     Box(
-        Modifier.size(150.dp)
-            .shadow(
-                elevation = 6.dp,
-                shape = RoundedCornerShape(24.dp),
-                clip = false
-            )
-            .clip(RoundedCornerShape(24.dp))
+        modifier.shadow(
+            elevation = 6.dp,
+            shape = RoundedCornerShape(16.dp),
+            clip = false
+        )
+            .clip(RoundedCornerShape(16.dp))
             .background(White)
             .clickable(onClick = { onClick() })
             .padding(20.dp),

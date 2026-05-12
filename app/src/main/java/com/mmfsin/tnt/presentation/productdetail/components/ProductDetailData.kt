@@ -22,7 +22,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -72,7 +71,7 @@ fun ProductDetailDataPV() {
         {},
         getCategories(),
         category = getCategoryById(15),
-        true,
+        false,
         {},
         {},
         true,
@@ -146,55 +145,44 @@ fun ProductDetailData(
             Spacer(Modifier.height(8.dp))
 
             /****************************************************** CATEGORY */
-
-            ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(),
-                expanded = categoriesState,
-                onExpandedChange = { updateCategoriesState() }
+            Row(
+                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
+                    .background(White).clickable(onClick = { updateCategoriesState() })
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
-                        .background(White).clickable(onClick = { updateCategoriesState() })
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
 
-                    val openedDropMenu by animateFloatAsState(
-                        targetValue = if (categoriesState) -1f else 1f,
-                        label = ""
-                    )
+                val openedDropMenu by animateFloatAsState(
+                    targetValue = if (categoriesState) -1f else 1f,
+                    label = ""
+                )
 
-                    category.icon?.let { icon ->
-                        Icon(
-                            painterResource(icon), null,
-                            tint = category.color
-                        )
-                        Spacer(Modifier.width(6.dp))
-                    }
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = stringResource(category.name),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                category.icon?.let { icon ->
                     Icon(
-                        painterResource(R.drawable.ic_arrow_down), null,
-                        tint = GrayHard,
-                        modifier = Modifier.graphicsLayer { scaleY = openedDropMenu }
+                        painterResource(icon), null,
+                        tint = category.color
                     )
+                    Spacer(Modifier.width(6.dp))
                 }
-                ExposedDropdownMenu(
-                    modifier = Modifier.clip(RoundedCornerShape(16.dp)),
-                    expanded = categoriesState,
-                    onDismissRequest = { updateCategoriesState() },
-                ) {
-                    categories.forEach { category ->
-                        CategoryItem(
-                            category,
-                            onClick = { id -> updateCategory(id) }
-                        )
-                    }
-                }
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(category.name),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Icon(
+                    painterResource(R.drawable.ic_arrow_down), null,
+                    tint = GrayHard,
+                    modifier = Modifier.graphicsLayer { scaleY = openedDropMenu }
+                )
             }
+
+            CategorySheet(
+                visible = categoriesState,
+                categories = categories,
+                selectedId = category.id,
+                onDismiss = { updateCategoriesState() },
+                onCategorySelected = { id -> updateCategory(id) }
+            )
 
             Spacer(Modifier.height(32.dp))
             /****************************************************** INFO */
@@ -314,30 +302,4 @@ fun SwitchBox(text: Int, checked: Boolean, updateState: (Boolean) -> Unit, isFav
         if (isFav) SwitchFavorite(checked, onCheckedChange = { updateState(it) })
         else SwitchHaveIt(checked, onCheckedChange = { updateState(it) })
     }
-}
-
-@Composable
-fun CategoryItem(category: Category, onClick: (Int) -> Unit) {
-    DropdownMenuItem(
-        modifier = Modifier.fillMaxWidth(),
-        text = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                category.icon?.let { icon ->
-                    Icon(
-                        painterResource(icon), stringResource(category.name),
-                        tint = category.color
-                    )
-                    Spacer(Modifier.width(8.dp))
-                }
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(category.name),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        },
-        onClick = { onClick(category.id) })
 }

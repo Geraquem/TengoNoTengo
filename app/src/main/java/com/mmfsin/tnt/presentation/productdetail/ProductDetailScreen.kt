@@ -42,7 +42,7 @@ fun ProductDetailPV() {
             newHaveIt = true,
             deleteDialog = false,
             categories = getCategories(),
-            categoriesState = true
+            categoriesState = false
         ),
         {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {},
@@ -128,7 +128,7 @@ fun ProductDetailContent(
                 categoriesState = uiState.categoriesState,
                 updateCategoriesState = { updateCategoriesState() },
                 deleteButtonVisible = true,
-                onDeleteClick = { deleteProduct() },
+                onDeleteClick = { updateDeleteDialogVisibility() },
                 onConfirmClick = { saveAndUpdateProduct() }
             )
         }

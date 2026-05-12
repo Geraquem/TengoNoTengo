@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,11 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.FilterType
-import com.mmfsin.tnt.domain.models.FilterType.ALPHABETIC
-import com.mmfsin.tnt.domain.models.FilterType.DONT_HAVE_FIRST
-import com.mmfsin.tnt.domain.models.FilterType.FAVORITES_FIRST
-import com.mmfsin.tnt.domain.models.FilterType.HAVE_FIRST
-import com.mmfsin.tnt.domain.models.FilterType.LAST_ADDED_FIRST
+import com.mmfsin.tnt.domain.models.FilterType.Companion.getAllFilters
 import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
@@ -64,11 +59,17 @@ fun FilterDialog(
 
             Spacer(Modifier.height(8.dp))
 
-            RadioButtonComponent(ALPHABETIC, selected) { onConfirm(it) }
-            RadioButtonComponent(FAVORITES_FIRST, selected) { onConfirm(it) }
-            RadioButtonComponent(DONT_HAVE_FIRST, selected) { onConfirm(it) }
-            RadioButtonComponent(HAVE_FIRST, selected) { onConfirm(it) }
-            RadioButtonComponent(LAST_ADDED_FIRST, selected) { onConfirm(it) }
+            val filters = getAllFilters()
+            filters.forEach { f ->
+                RadioButtonComponent(
+                    type = f,
+                    selectedId = selected,
+                    select = { id ->
+                        selected = id
+                        onConfirm(id)
+                    }
+                )
+            }
         }
     }
 }

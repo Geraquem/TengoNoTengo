@@ -8,8 +8,5 @@ import javax.inject.Inject
 class GetActualFilterUseCase @Inject constructor(
     private val repository: IConfigRepository
 ) {
-    operator fun invoke(): FilterType {
-        val actualFilterId = repository.getActualFilter()
-        return getFilterById(actualFilterId)
-    }
+    operator fun invoke(): FilterType = getFilterById(repository.getActualFilter())
 }

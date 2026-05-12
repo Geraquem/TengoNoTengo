@@ -30,6 +30,7 @@
     <string name="filter_dialog_dont_have_first">No tengo primero</string>
     <string name="filter_dialog_i_have_first">Lo que tengo primero</string>
     <string name="filter_dialog_last_first">Lo último añadido primero</string>
+    <string name="filter_dialog_by_category">Por categoría</string>
     <string name="filter_dialog_cancel">Cancelar</string>
     <string name="filter_dialog_confirm">Confirmar</string>
 

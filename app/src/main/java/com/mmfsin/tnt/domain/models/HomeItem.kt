@@ -1,14 +1,18 @@
 package com.mmfsin.tnt.domain.models
 
+import androidx.compose.runtime.Composable
+
 data class HomeItem(
-    val type: HomeType,
-    val icon: Int,
-    val name: Int
+    val type: HomeTypeClassification,
+    val icon: @Composable () -> Unit,
+    val name: Int,
+    val order: Int
 )
 
-enum class HomeType {
+enum class HomeTypeClassification {
     MY_PRODUCTS,
     DONT_HAVE,
     HAVE,
-    FAVORITES
+    FAVORITES,
+    BY_CATEGORIES
 }

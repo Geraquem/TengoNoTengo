@@ -61,14 +61,6 @@ class MyProductsViewModel @Inject constructor(
         }
     }
 
-    private fun getAddProductVisible() {
-        executeUseCase(
-            { getAddProductVisibleUseCase() },
-            { visible -> _uiState.update { it.copy(productToAddVisible = visible) } },
-            {}
-        )
-    }
-
     private fun getActualFilter() {
         executeUseCase(
             { getActualFilterUseCase() },
@@ -76,6 +68,14 @@ class MyProductsViewModel @Inject constructor(
                 filterFlow.value = actualFilter
                 _uiState.update { it.copy(actualFilter = actualFilter) }
             },
+            {}
+        )
+    }
+
+    private fun getAddProductVisible() {
+        executeUseCase(
+            { getAddProductVisibleUseCase() },
+            { visible -> _uiState.update { it.copy(productToAddVisible = visible) } },
             {}
         )
     }

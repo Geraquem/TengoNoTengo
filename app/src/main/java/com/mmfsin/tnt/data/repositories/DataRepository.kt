@@ -23,6 +23,18 @@ class DataRepository @Inject constructor(
         return productsDao.getProductById(id)?.toProduct()
     }
 
+    override fun getProductsIDontHave(): Flow<List<Product>> {
+        return productsDao.getProductsByHaveIt(haveIt = false).map { list -> list.toProductList() }
+    }
+
+    override fun getProductsIHave(): Flow<List<Product>> {
+        return productsDao.getProductsByHaveIt(haveIt = true).map { list -> list.toProductList() }
+    }
+
+    override fun getFavoriteProducts(): Flow<List<Product>> {
+        return productsDao.getFavoriteProducts(favorite = true).map { list -> list.toProductList() }
+    }
+
     override fun addSingleProduct(name: String) {
         productsDao.insertProduct(createSingleProduct(name))
     }

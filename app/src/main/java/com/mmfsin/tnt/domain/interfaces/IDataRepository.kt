@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface IDataRepository {
     fun getAllProducts(): Flow<List<Product>>
     fun getProductById(id: String): Product?
+    fun getProductsIDontHave(): Flow<List<Product>>
+    fun getProductsIHave(): Flow<List<Product>>
+    fun getFavoriteProducts(): Flow<List<Product>>
 
     fun addSingleProduct(name: String)
     fun addAdvancedProduct(product: Product)

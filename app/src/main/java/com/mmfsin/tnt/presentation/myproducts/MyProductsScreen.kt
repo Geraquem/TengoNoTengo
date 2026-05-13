@@ -42,7 +42,7 @@ import com.mmfsin.tnt.presentation.myproducts.components.ProductItem
 fun MyProductsScreenPV() {
     MyProductsContent(
         MyProductsStates(
-            isLoading = true,
+            isLoading = false,
             products = getExampleProducts(),
             //            products = emptyList(),
             filterDialogVisible = false,

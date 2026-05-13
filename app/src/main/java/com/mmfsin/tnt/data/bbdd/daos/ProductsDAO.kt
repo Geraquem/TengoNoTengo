@@ -16,6 +16,12 @@ interface ProductsDAO {
     @Query("SELECT * FROM table_products")
     fun getAllProducts(): Flow<List<ProductDTO>>
 
+    @Query("SELECT * FROM table_products WHERE haveIt = :haveIt")
+    fun getProductsByHaveIt(haveIt: Boolean): Flow<List<ProductDTO>>
+
+    @Query("SELECT * FROM table_products WHERE favorite = :favorite")
+    fun getFavoriteProducts(favorite: Boolean): Flow<List<ProductDTO>>
+
     @Query("SELECT * FROM table_products WHERE id = :id LIMIT 1")
     fun getProductById(id: String): ProductDTO?
 

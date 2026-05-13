@@ -9,9 +9,10 @@
 
     <!-- HOME -->
     <string name="home_box_my_products">Mis productos</string>
-    <string name="home_box_dont_have">No tengo</string>
-    <string name="home_box_have">Sí tengo</string>
+    <string name="home_box_dont_have"><b>NO TENGO</b></string>
+    <string name="home_box_have">SÍ TENGO</string>
     <string name="home_box_favorites">Mis favoritos</string>
+    <string name="home_box_by_categories">Por categorías</string>
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mis productos</string>
@@ -47,6 +48,14 @@
     <string name="delete_product">¿Quieres eliminar %s de tu lista de productos?</string>
     <string name="delete_product_confirm">Eliminar</string>
     <string name="delete_product_cancel">Cancelar</string>
+
+    <!-- HOME FILTER CLASSIFICATION -->
+    <string name="classification_dont_have_title">No tengo</string>
+    <string name="classification_dont_have_empty">Esto está vacío. Parece que lo tienes todo.</string>
+    <string name="classification_have_title">Tengo disponible</string>
+    <string name="classification_have_empty">Esto está vacío. Parece que no tienes de nada.</string>
+    <string name="classification_favorites_title">Mis favoritos</string>
+    <string name="classification_favorites_empty">Esto está vacío. Parece que no tienes favoritos.</string>
 
     <!-- CATEGORIES -->
     <string name="category_none">Sin categoría</string>

@@ -5,7 +5,7 @@ import com.mmfsin.tnt.R
 
 data class HomeItem(
     val type: HomeTypeClassification,
-    val icon: @Composable () -> Unit,
+    val icon: @Composable (onClick: () -> Unit) -> Unit,
     val name: Int,
     val order: Int
 )

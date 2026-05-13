@@ -14,6 +14,7 @@ import com.mmfsin.tnt.R
 import com.mmfsin.tnt.presentation.core.theme.GrayHard
 import com.mmfsin.tnt.presentation.core.theme.GrayMedium
 import com.mmfsin.tnt.presentation.core.theme.GreenMedium
+import com.mmfsin.tnt.presentation.core.theme.RedMedium
 import com.mmfsin.tnt.presentation.core.theme.White
 import com.mmfsin.tnt.presentation.core.theme.YellowHard
 import com.mmfsin.tnt.presentation.core.theme.YellowLight

@@ -90,14 +90,14 @@ fun HomeContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(uiState.items) { item -> MyBox(item) { navigateToHomeClassification(item.type.id) } }
+                items(uiState.items) { item -> HomeBox(item) { navigateToHomeClassification(item.type.id) } }
             }
         }
     }
 }
 
 @Composable
-fun MyBox(
+fun HomeBox(
     item: HomeItem,
     onClick: () -> Unit
 ) {
@@ -113,7 +113,7 @@ fun MyBox(
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            item.icon()
+            item.icon { onClick() }
             Spacer(Modifier.height(4.dp))
             Text(text = stringResource(item.name), style = MaterialTheme.typography.bodyLarge)
         }

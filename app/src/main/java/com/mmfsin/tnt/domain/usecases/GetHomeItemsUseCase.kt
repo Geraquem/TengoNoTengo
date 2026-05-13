@@ -15,26 +15,26 @@ class GetHomeItemsUseCase @Inject constructor() {
 fun getItems() = listOf(
     HomeItem(
         type = HAVE,
-        icon = { SwitchHaveIt(true) { } },
+        icon = { onClick -> SwitchHaveIt(true) { onClick() } },
         name = R.string.home_box_have,
         order = 0
     ),
     HomeItem(
         type = HomeTypeClassification.DONT_HAVE,
-        icon = { SwitchHaveIt(false) { } },
+        icon = { onClick -> SwitchHaveIt(false) { onClick() } },
         name = R.string.home_box_dont_have,
         order = 1
     ),
     HomeItem(
         type = HomeTypeClassification.FAVORITES,
-        icon = { SwitchFavorite(true) {} },
+        icon = { onClick -> SwitchFavorite(true) { onClick() } },
         name = R.string.home_box_favorites,
         order = 2
     ),
     HomeItem(
         type = HomeTypeClassification.BY_CATEGORIES,
         icon = { },
-        name = R.string.home_box_favorites,
+        name = R.string.home_box_by_categories,
         order = 3
     )
 )

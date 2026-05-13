@@ -9,7 +9,7 @@
 
     <!-- HOME -->
     <string name="home_box_my_products">Mis productos</string>
-    <string name="home_box_my_products_all_i_have">Todo lo que tengo</string>
+    <string name="home_box_my_products_all_i_have">Toda mi despensa</string>
     <string name="home_box_dont_have"><b>NO TENGO</b></string>
     <string name="home_box_have">SÍ TENGO</string>
     <string name="home_box_favorites">Mis favoritos</string>

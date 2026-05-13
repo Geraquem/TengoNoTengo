@@ -8,12 +8,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmfsin.tnt.R
+import com.mmfsin.tnt.presentation.core.theme.White
 
 @Preview
 @Composable
 fun CategoryIcon() {
     Icon(
-        painterResource(R.drawable.ic_category_vegetables), null,
+        painterResource(R.drawable.ic_category), null,
+        tint = White,
         modifier = Modifier.size(46.dp)
     )
 }

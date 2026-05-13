@@ -2,6 +2,7 @@ package com.mmfsin.tnt.presentation.myproducts.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,6 @@ import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.domain.models.getExampleProducts
-import com.mmfsin.tnt.presentation.core.theme.Black
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.RedHard
 
@@ -112,6 +112,7 @@ fun CategoryHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(GrayLight)
+            .clickable(onClick = { productsVisibility(category.id) })
             .padding(horizontal = 16.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

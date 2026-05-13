@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -36,6 +38,7 @@ fun Toolbar(
     onBackClick: () -> Unit = {},
     rightIcon: Int? = null,
     onRightIconClick: () -> Unit = {},
+    mainTitle: Boolean = false
 ) {
     TopAppBar(
         modifier = Modifier
@@ -51,7 +54,8 @@ fun Toolbar(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(text),
-                    modifier = Modifier.weight(1f).padding(start = if (iconBackVisible) 2.dp else 16.dp)
+                    modifier = Modifier.weight(1f).padding(start = if (iconBackVisible) 2.dp else 16.dp),
+                    fontFamily = if (mainTitle) FontFamily(Font(R.font.ngaco)) else null
                 )
 
                 if (rightIcon != null) {

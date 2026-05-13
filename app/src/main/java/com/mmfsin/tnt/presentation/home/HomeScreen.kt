@@ -66,7 +66,7 @@ fun HomeContent(
     navigateToHomeClassification: (Int) -> Unit
 ) {
     Scaffold(
-        topBar = { Toolbar(text = R.string.app_name, iconBackVisible = false) }
+        topBar = { Toolbar(text = R.string.app_complete_name, iconBackVisible = false, mainTitle = true) }
     ) { innerPadding ->
         Column(
             modifier = Modifier.fillMaxSize().padding(innerPadding)
@@ -171,7 +171,7 @@ fun HomeBox(
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.clip(RoundedCornerShape(16.dp))
                     .background(White)
-                    .padding(horizontal = 8.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             )
         }
     }

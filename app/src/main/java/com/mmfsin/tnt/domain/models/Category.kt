@@ -18,15 +18,15 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
     SNACKS(
         id = 1,
         categoryName = R.string.category_snacks,
-        icon = R.drawable.ic_category_snacks,
-        color = Color(0xFFE5B763)
+        icon = R.drawable.ic_category_snack,
+        color = Color(0xFFE79507)
     ),
 
     BASICS(
         id = 2,
         categoryName = R.string.category_basics,
         icon = R.drawable.ic_category_basic,
-        color = Color(0xFFCED485)
+        color = Color(0xFFBAC160)
     ),
 
     DRINKS(
@@ -47,7 +47,7 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 5,
         categoryName = R.string.category_meat,
         icon = R.drawable.ic_category_meat,
-        color = Color(0xFFAD6A5F)
+        color = Color(0xFFD51D01)
     ),
 
     CEREALS(
@@ -103,28 +103,28 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 13,
         categoryName = R.string.category_nuts,
         icon = R.drawable.ic_category_nuts,
-        color = Color(0xFFCE9346)
+        color = Color(0xFF9C6620)
     ),
 
     LACTEOS(
         id = 14,
         categoryName = R.string.category_dairy,
         icon = R.drawable.ic_category_lacteos,
-        color = Color(0xFFB7BD6F)
+        color = Color(0xFF05DE94)
     ),
 
     LEGUMES(
         id = 15,
         categoryName = R.string.category_legumes,
         icon = R.drawable.ic_category_legumes,
-        color = Color(0xFFE8EEA3)
+        color = Color(0xFF7A8032)
     ),
 
     BREAD(
         id = 16,
         categoryName = R.string.category_bread,
         icon = R.drawable.ic_category_bread,
-        color = Color(0xFFB7BD6F)
+        color = Color(0xFF78550F)
     ),
 
     PASTA(
@@ -138,28 +138,28 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 18,
         categoryName = R.string.category_fish,
         icon = R.drawable.ic_category_fish,
-        color = Color(0xFF7BBFE2)
+        color = Color(0xFF0595DB)
     ),
 
     DESSERTS(
         id = 19,
         categoryName = R.string.category_desserts,
         icon = R.drawable.ic_category_dessert,
-        color = Color(0xFFB7BD6F)
+        color = Color(0xFF808461)
     ),
 
     CHEESE(
         id = 20,
         categoryName = R.string.category_cheese,
         icon = R.drawable.ic_category_cheese,
-        color = Color(0xFFFFFBAC)
+        color = Color(0xFFE0D51E)
     ),
 
     SAUCES(
         id = 21,
         categoryName = R.string.category_sauces,
         icon = R.drawable.ic_category_sauces,
-        color = Color(0xFF9FD4C8)
+        color = Color(0xFF8D5231)
     ),
 
     GLUTEN_FREE(
@@ -187,7 +187,7 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 25,
         categoryName = R.string.category_vegan,
         icon = R.drawable.ic_category_vegan,
-        color = Color(0xFFB7BD6F)
+        color = Color(0xFF5D9A52)
     ),
 
     VEGETARIAN(
@@ -201,7 +201,7 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 27,
         categoryName = R.string.category_vegetables,
         icon = R.drawable.ic_category_vegetables,
-        color = Color(0xFF81CD78)
+        color = Color(0xFF238D17)
     ),
     NONE(
         id = 99,

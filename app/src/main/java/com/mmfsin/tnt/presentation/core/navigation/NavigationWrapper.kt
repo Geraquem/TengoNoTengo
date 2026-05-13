@@ -1,5 +1,7 @@
 package com.mmfsin.tnt.presentation.core.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,7 +16,11 @@ fun NavigationWrapper() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Home
+        startDestination = Home,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None }
     ) {
 
         composable<Home> {

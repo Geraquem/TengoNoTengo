@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -77,9 +78,20 @@ fun HomeContent(
                     .clip(RoundedCornerShape(16.dp))
                     .clickable(onClick = { navigateToHomeClassification(MY_PRODUCTS.id) })
                     .background(White)
-                    .padding(horizontal = 16.dp, vertical = 42.dp)
+                    .padding(horizontal = 16.dp, vertical = 64.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Text("Mis cositas")
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = stringResource(R.string.home_box_my_products),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(Modifier.height(6.dp))
+                    Text(
+                        text = stringResource(R.string.home_box_my_products_all_i_have),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
 
             Spacer(Modifier.height(12.dp))
@@ -113,7 +125,12 @@ fun HomeBox(
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            item.icon { onClick() }
+            Box(
+                modifier = Modifier.size(60.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                item.icon { onClick() }
+            }
             Spacer(Modifier.height(4.dp))
             Text(text = stringResource(item.name), style = MaterialTheme.typography.bodyLarge)
         }

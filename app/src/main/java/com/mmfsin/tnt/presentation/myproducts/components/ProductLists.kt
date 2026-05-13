@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,8 @@ import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.domain.models.getExampleProducts
+import com.mmfsin.tnt.presentation.core.theme.Black
+import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.RedHard
 
 @Preview
@@ -57,37 +60,37 @@ fun ProductListByCategories(
     val categoriesExpanded = remember { mutableStateMapOf<Int, Boolean>() }
 
     LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
-        var lastCategoryId: Int? = null
-        var isFirstItemInCategory = false
 
-        items(products) { product ->
+        itemsIndexed(
+            items = products,
+            key = { _, product -> product.id }
+        ) { index, product ->
+
             val categoryId = product.category.id
+            val previousCategoryId = products.getOrNull(index - 1)?.category?.id
 
-            if (categoriesExpanded[categoryId] == null) {
-                categoriesExpanded[categoryId] = true
-            }
+            val isFirstInCategory = previousCategoryId != categoryId
 
-            if (lastCategoryId != categoryId) {
-                lastCategoryId = categoryId
-                isFirstItemInCategory = true
+            val expanded = categoriesExpanded.getOrPut(categoryId) { true }
 
+            if (isFirstInCategory) {
                 CategoryHeader(
                     category = product.category,
                     expanded = categoriesExpanded[categoryId] == true,
                     productsVisibility = {
-                        categoriesExpanded[categoryId] = !(categoriesExpanded[categoryId] ?: true)
-                    })
+                        categoriesExpanded[categoryId] = !expanded
+                    }
+                )
             }
 
-            if (categoriesExpanded[categoryId] == true) {
+            if (expanded) {
                 ProductItem(
                     product = product,
-                    updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) },
-                    onProductClick = { id -> toProductDetail(id) },
+                    updateHaveIt = updateHaveItProduct,
+                    onProductClick = toProductDetail,
                     categoryIconVisible = false,
-                    dividerVisible = !isFirstItemInCategory
+                    dividerVisible = !isFirstInCategory
                 )
-                isFirstItemInCategory = false
             }
         }
     }
@@ -108,13 +111,14 @@ fun CategoryHeader(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(category.color)
+            .background(GrayLight)
             .padding(horizontal = 16.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         category.icon?.let { icon ->
             Icon(
                 painterResource(icon), stringResource(category.name),
+                tint = category.color,
                 modifier = Modifier.padding(end = 8.dp)
             )
         }

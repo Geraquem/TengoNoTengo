@@ -29,6 +29,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,9 +70,10 @@ class MyProductsViewModel @Inject constructor(
         viewModelScope.launch {
             combine(
                 getPertinentProducts(),
-                filterFlow
-            ) { products, filter ->
-                if (_uiState.value.byCategories) products
+                filterFlow,
+                uiState.map { it.byCategories }
+            ) { products, filter, byCategories->
+                if (byCategories) products
                 else products.sortedByFilter(filter)
             }.collect { sortedProducts ->
                 _uiState.update {

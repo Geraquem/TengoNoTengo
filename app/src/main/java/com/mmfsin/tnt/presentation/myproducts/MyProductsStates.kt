@@ -15,7 +15,7 @@ data class MyProductsStates(
     val byCategories: Boolean = false,
 
     val productToAdd: String = "",
-    val productToAddVisible: Boolean = true,
+    val productToAddVisible: Boolean = false,
 
     val clearKeyboard: Boolean = false,
 

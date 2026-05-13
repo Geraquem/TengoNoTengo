@@ -6,6 +6,7 @@ import com.mmfsin.tnt.domain.models.HomeTypeClassification
 import com.mmfsin.tnt.domain.models.HomeTypeClassification.HAVE
 import com.mmfsin.tnt.presentation.core.components.SwitchFavorite
 import com.mmfsin.tnt.presentation.core.components.SwitchHaveIt
+import com.mmfsin.tnt.presentation.home.components.CategoryIcon
 import javax.inject.Inject
 
 class GetHomeItemsUseCase @Inject constructor() {
@@ -33,7 +34,7 @@ fun getItems() = listOf(
     ),
     HomeItem(
         type = HomeTypeClassification.BY_CATEGORIES,
-        icon = { },
+        icon = { CategoryIcon() },
         name = R.string.home_box_by_categories,
         order = 3
     )

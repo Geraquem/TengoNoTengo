@@ -48,7 +48,8 @@ fun ProductItemPV() {
         ),
         { _, _ -> },
         {},
-        true
+        true,
+        dividerVisible = true
     )
 }
 
@@ -58,9 +59,10 @@ fun ProductItem(
     updateHaveIt: (String, Boolean) -> Unit,
     onProductClick: (String) -> Unit,
     categoryIconVisible: Boolean,
+    dividerVisible: Boolean = true
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Box(Modifier.fillMaxWidth().height(8.dp).background(GrayLight))
+        if (dividerVisible) Box(Modifier.fillMaxWidth().height(8.dp).background(GrayLight))
 
         Row(
             modifier = Modifier.clickable(onClick = { onProductClick(product.id) })

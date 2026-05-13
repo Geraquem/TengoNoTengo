@@ -54,7 +54,7 @@ fun getExampleProducts() = listOf(
         whereToFind = "Mercadona",
         haveIt = true,
         favorite = true,
-        category = getCategoryById(2),
+        category = getCategoryById(27),
         date = 0
     ),
     Product(

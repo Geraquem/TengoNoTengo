@@ -30,13 +30,12 @@ import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.Product
 import com.mmfsin.tnt.domain.models.getExampleProducts
-import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.RedHard
 
 @Preview
 @Composable
 fun ProductListPV() {
-    Column() {
+    Column {
         ProductListByCategories(
             getExampleProducts(),
             { _, _ -> }, {}
@@ -59,6 +58,7 @@ fun ProductListByCategories(
 
     LazyColumn(contentPadding = PaddingValues(bottom = 150.dp)) {
         var lastCategoryId: Int? = null
+        var isFirstItemInCategory = false
 
         items(products) { product ->
             val categoryId = product.category.id
@@ -69,6 +69,8 @@ fun ProductListByCategories(
 
             if (lastCategoryId != categoryId) {
                 lastCategoryId = categoryId
+                isFirstItemInCategory = true
+
                 CategoryHeader(
                     category = product.category,
                     expanded = categoriesExpanded[categoryId] == true,
@@ -82,8 +84,10 @@ fun ProductListByCategories(
                     product = product,
                     updateHaveIt = { id, haveIt -> updateHaveItProduct(id, haveIt) },
                     onProductClick = { id -> toProductDetail(id) },
-                    categoryIconVisible = false
+                    categoryIconVisible = false,
+                    dividerVisible = !isFirstItemInCategory
                 )
+                isFirstItemInCategory = false
             }
         }
     }
@@ -104,9 +108,8 @@ fun CategoryHeader(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(GrayLight)
-            .padding(horizontal = 16.dp)
-            .padding(top = 12.dp, bottom = 4.dp),
+            .background(category.color)
+            .padding(horizontal = 16.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         category.icon?.let { icon ->

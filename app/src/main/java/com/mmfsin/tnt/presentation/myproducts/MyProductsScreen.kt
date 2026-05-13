@@ -94,9 +94,9 @@ fun MyProductsContent(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         topBar = {
             Toolbar(
-                text = R.string.my_products_toolbar,
+                text = uiState.title,
                 onBackClick = { goBack() },
-                rightIcon = R.drawable.ic_sort,
+                rightIcon = if (uiState.products.isNotEmpty()) R.drawable.ic_sort else null,
                 onRightIconClick = { updateFilterDialogVisibility() }
             )
         }
@@ -119,7 +119,7 @@ fun MyProductsContent(
         Box(Modifier.fillMaxSize().background(GrayLight).padding(innerPadding)) {
             if (uiState.products.isEmpty()) {
                 Text(
-                    stringResource(R.string.my_products_nothing_added),
+                    stringResource(uiState.emptyMessage),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.Center).alpha(0.75f)
                 )

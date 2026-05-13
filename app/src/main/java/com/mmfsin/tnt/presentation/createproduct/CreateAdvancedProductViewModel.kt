@@ -1,4 +1,4 @@
-package com.mmfsin.tnt.presentation.createProduct
+package com.mmfsin.tnt.presentation.createproduct
 
 import androidx.lifecycle.SavedStateHandle
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById

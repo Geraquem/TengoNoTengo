@@ -31,7 +31,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.HomeItem
-import com.mmfsin.tnt.domain.models.HomeTypeClassification
 import com.mmfsin.tnt.domain.models.HomeTypeClassification.MY_PRODUCTS
 import com.mmfsin.tnt.domain.usecases.getItems
 import com.mmfsin.tnt.presentation.core.components.Toolbar
@@ -47,16 +46,16 @@ fun HomeScreenPV() {
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateTo: (HomeTypeClassification) -> Unit
+    navigateToHomeClassification: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(uiState) { type -> navigateTo(type) }
+    HomeContent(uiState) { type -> navigateToHomeClassification(type) }
 }
 
 @Composable
 fun HomeContent(
     uiState: HomeStates,
-    navigateTo: (HomeTypeClassification) -> Unit
+    navigateToHomeClassification: (Int) -> Unit
 ) {
     Scaffold(
         topBar = { Toolbar(text = R.string.app_name, iconBackVisible = false) }
@@ -76,7 +75,7 @@ fun HomeContent(
                         clip = false
                     )
                     .clip(RoundedCornerShape(16.dp))
-                    .clickable(onClick = { navigateTo(MY_PRODUCTS) })
+                    .clickable(onClick = { navigateToHomeClassification(MY_PRODUCTS.id) })
                     .background(White)
                     .padding(horizontal = 16.dp, vertical = 42.dp)
             ) {
@@ -91,7 +90,7 @@ fun HomeContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(uiState.items) { item -> MyBox(item) { navigateTo(item.type) } }
+                items(uiState.items) { item -> MyBox(item) { navigateToHomeClassification(item.type.id) } }
             }
         }
     }

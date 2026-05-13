@@ -1,4 +1,4 @@
-package com.mmfsin.tnt.presentation.createProduct
+package com.mmfsin.tnt.presentation.createproduct
 
 import com.mmfsin.tnt.domain.models.Category
 import com.mmfsin.tnt.domain.models.Product

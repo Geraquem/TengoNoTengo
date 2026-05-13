@@ -51,11 +51,13 @@
 
     <!-- HOME FILTER CLASSIFICATION -->
     <string name="classification_dont_have_title">No tengo</string>
-    <string name="classification_dont_have_empty">Esto está vacío. Parece que lo tienes todo.</string>
+    <string name="classification_dont_have_empty">Esto está vacío.\nParece que lo tienes todo.</string>
     <string name="classification_have_title">Tengo disponible</string>
-    <string name="classification_have_empty">Esto está vacío. Parece que no tienes de nada.</string>
+    <string name="classification_have_empty">Esto está vacío.\nParece que no tienes de nada.</string>
     <string name="classification_favorites_title">Mis favoritos</string>
-    <string name="classification_favorites_empty">Esto está vacío. Parece que no tienes favoritos.</string>
+    <string name="classification_favorites_empty">Esto está vacío.\nParece que no tienes favoritos.</string>
+    <string name="classification_categories_title">Por categorías</string>
+    <string name="classification_categories_empty">Esto está vacío.\nParece que no hay ninguna categoría asignada.</string>
 
     <!-- CATEGORIES -->
     <string name="category_none">Sin categoría</string>

@@ -1,4 +1,4 @@
-package com.mmfsin.tnt.presentation.createProduct
+package com.mmfsin.tnt.presentation.createproduct
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

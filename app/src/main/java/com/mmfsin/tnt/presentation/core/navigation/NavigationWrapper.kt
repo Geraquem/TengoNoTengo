@@ -4,13 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mmfsin.tnt.domain.models.HomeTypeClassification.BY_CATEGORIES
-import com.mmfsin.tnt.domain.models.HomeTypeClassification.DONT_HAVE
-import com.mmfsin.tnt.domain.models.HomeTypeClassification.FAVORITES
-import com.mmfsin.tnt.domain.models.HomeTypeClassification.HAVE
-import com.mmfsin.tnt.domain.models.HomeTypeClassification.MY_PRODUCTS
-import com.mmfsin.tnt.presentation.createProduct.CreateAdvancedProductScreen
-import com.mmfsin.tnt.presentation.donthave.DontHaveScreen
+import com.mmfsin.tnt.presentation.createproduct.CreateAdvancedProductScreen
 import com.mmfsin.tnt.presentation.home.HomeScreen
 import com.mmfsin.tnt.presentation.myproducts.MyProductsScreen
 import com.mmfsin.tnt.presentation.productdetail.ProductDetailScreen
@@ -25,14 +19,8 @@ fun NavigationWrapper() {
 
         composable<Home> {
             HomeScreen(
-                navigateTo = { type ->
-                    when (type) {
-                        MY_PRODUCTS -> navController.navigate(MyProducts)
-                        DONT_HAVE -> navController.navigate(ProductsIDontHave)
-                        HAVE -> {}
-                        FAVORITES -> {}
-                        BY_CATEGORIES -> {}
-                    }
+                navigateToHomeClassification = { typeId ->
+                    navController.navigate(MyProducts(typeId))
                 }
             )
         }
@@ -57,10 +45,6 @@ fun NavigationWrapper() {
             CreateAdvancedProductScreen(
                 goBack = { navController.popBackStack() },
             )
-        }
-
-        composable<ProductsIDontHave> {
-            DontHaveScreen(goBack = { navController.popBackStack() })
         }
     }
 }

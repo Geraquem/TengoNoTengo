@@ -6,22 +6,10 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
-object MyProducts
+data class MyProducts(val classification: Int)
 
 @Serializable
 data class ProductDetail(val id: String)
 
 @Serializable
 data class CreateAdvancedProduct(val name: String)
-
-@Serializable
-object ProductsIDontHave
-
-@Serializable
-object ProductsIHave
-
-@Serializable
-object FavoriteProducts
-
-@Serializable
-object ProductsByCategories

@@ -12,6 +12,8 @@ data class MyProductsStates(
 
     val products: List<Product> = emptyList(),
 
+    val byCategories: Boolean = false,
+
     val productToAdd: String = "",
     val productToAddVisible: Boolean = true,
 

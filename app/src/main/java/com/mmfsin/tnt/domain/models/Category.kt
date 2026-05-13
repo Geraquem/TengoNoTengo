@@ -13,13 +13,6 @@ data class Category(
 )
 
 enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val color: Color) {
-    NONE(
-        id = 0,
-        categoryName = R.string.category_none,
-        icon = null,
-        color = Black
-    ),
-
     SNACKS(
         id = 1,
         categoryName = R.string.category_snacks,
@@ -206,6 +199,12 @@ enum class CategoryType(val id: Int, val categoryName: Int, val icon: Int?, val 
         id = 27,
         categoryName = R.string.category_vegetables,
         icon = R.drawable.ic_category_vegetables,
+        color = Black
+    ),
+    NONE(
+        id = 99,
+        categoryName = R.string.category_none,
+        icon = null,
         color = Black
     );
 

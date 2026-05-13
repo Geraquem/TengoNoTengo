@@ -43,11 +43,12 @@ fun ProductItemPV() {
             whereToFind = "Mercadona",
             haveIt = true,
             favorite = false,
-            category = getCategoryById(1),
+            category = getCategoryById(11),
             date = 0
         ),
         { _, _ -> },
-        {}
+        {},
+        true
     )
 }
 
@@ -55,7 +56,8 @@ fun ProductItemPV() {
 fun ProductItem(
     product: Product,
     updateHaveIt: (String, Boolean) -> Unit,
-    onProductClick: (String) -> Unit
+    onProductClick: (String) -> Unit,
+    categoryIconVisible: Boolean,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Box(Modifier.fillMaxWidth().height(8.dp).background(GrayLight))
@@ -71,9 +73,9 @@ fun ProductItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Row(verticalAlignment = Alignment.Top) {
-                    product.category.icon?.let { icon ->
+                    if (product.category.icon != null && categoryIconVisible) {
                         Icon(
-                            painter = painterResource(icon), null,
+                            painter = painterResource(product.category.icon), null,
                             modifier = Modifier.padding(end = 8.dp),
                             tint = product.category.color
                         )

@@ -34,7 +34,7 @@ fun ProductDetailPV() {
                 whereToFind = "",
                 haveIt = false,
                 favorite = true,
-                category = getCategoryById(0),
+                category = getCategoryById(6),
                 date = 0
             ),
             newName = "Soja texturizada",

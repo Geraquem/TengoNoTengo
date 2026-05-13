@@ -44,7 +44,7 @@ fun getExampleProducts() = listOf(
         whereToFind = null,
         haveIt = false,
         favorite = false,
-        category = getCategoryById(2),
+        category = getCategoryById(3),
         date = 0
     ),
     Product(

@@ -18,6 +18,7 @@ import com.mmfsin.tnt.domain.usecases.GetActualFilterUseCase
 import com.mmfsin.tnt.domain.usecases.GetAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.GetAllProductsUseCase
 import com.mmfsin.tnt.domain.usecases.GetFavoriteProductsUseCase
+import com.mmfsin.tnt.domain.usecases.GetProductsByCategoryUseCase
 import com.mmfsin.tnt.domain.usecases.GetProductsByHaveItUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateAddProductVisibleUseCase
 import com.mmfsin.tnt.domain.usecases.UpdateFilterUseCase
@@ -38,6 +39,7 @@ class MyProductsViewModel @Inject constructor(
     private val getAllProductsUseCase: GetAllProductsUseCase,
     private val getProductsByHaveItUseCase: GetProductsByHaveItUseCase,
     private val getFavoriteProductUseCase: GetFavoriteProductsUseCase,
+    private val getProductsByCategoryUseCase: GetProductsByCategoryUseCase,
     private val getAddProductVisibleUseCase: GetAddProductVisibleUseCase,
     private val addSingleProductUseCase: AddSingleProductUseCase,
     private val updateAddProductVisibleUseCase: UpdateAddProductVisibleUseCase,
@@ -69,7 +71,8 @@ class MyProductsViewModel @Inject constructor(
                 getPertinentProducts(),
                 filterFlow
             ) { products, filter ->
-                products.sortedByFilter(filter)
+                if (_uiState.value.byCategories) products
+                else products.sortedByFilter(filter)
             }.collect { sortedProducts ->
                 _uiState.update {
                     it.copy(
@@ -99,7 +102,10 @@ class MyProductsViewModel @Inject constructor(
             DONT_HAVE -> getProductsByHaveItUseCase(haveIt = false)
             HAVE -> getProductsByHaveItUseCase(haveIt = true)
             FAVORITES -> getFavoriteProductUseCase()
-            BY_CATEGORIES -> getAllProductsUseCase()
+            BY_CATEGORIES -> {
+                _uiState.update { it.copy(byCategories = true) }
+                getProductsByCategoryUseCase()
+            }
         }
     }
 

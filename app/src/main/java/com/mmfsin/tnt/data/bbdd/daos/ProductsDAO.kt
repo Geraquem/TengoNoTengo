@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import com.mmfsin.tnt.data.ProductDTO
+import com.mmfsin.tnt.data.models.ProductDTO
 import kotlinx.coroutines.flow.Flow
 
 @Dao

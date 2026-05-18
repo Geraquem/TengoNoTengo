@@ -1,4 +1,4 @@
-package com.mmfsin.tnt.data
+package com.mmfsin.tnt.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

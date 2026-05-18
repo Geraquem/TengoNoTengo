@@ -1,6 +1,6 @@
 package com.mmfsin.tnt.data.mappers
 
-import com.mmfsin.tnt.data.ProductDTO
+import com.mmfsin.tnt.data.models.ProductDTO
 import com.mmfsin.tnt.domain.models.CategoryType.Companion.getCategoryById
 import com.mmfsin.tnt.domain.models.Product
 import java.util.UUID

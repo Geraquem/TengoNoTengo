@@ -2,8 +2,6 @@ package com.mmfsin.tnt.domain.models
 
 import androidx.compose.ui.graphics.Color
 import com.mmfsin.tnt.R
-import com.mmfsin.tnt.presentation.core.theme.Black
-import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.core.theme.GrayMedium
 
 data class Category(

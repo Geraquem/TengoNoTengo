@@ -1,6 +1,6 @@
 package com.mmfsin.tnt.data.mappers
 
-import com.mmfsin.tnt.data.ProductDTO
+import com.mmfsin.tnt.data.models.ProductDTO
 import com.mmfsin.tnt.domain.models.Product
 
 fun Product.toProductDTO() = ProductDTO(

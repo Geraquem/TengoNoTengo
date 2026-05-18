@@ -9,15 +9,15 @@
     <string name="cd_sort">Ordenar</string>
 
     <!-- HOME -->
-    <string name="home_box_my_products">Mis productos</string>
-    <string name="home_box_my_products_all_i_have">Toda mi despensa</string>
+    <string name="home_box_my_products">Mi lista de la compra</string>
+    <string name="home_box_my_products_all_i_have">Todo lo que necesito</string>
     <string name="home_box_dont_have"><b>NO TENGO</b></string>
     <string name="home_box_have">SÍ TENGO</string>
     <string name="home_box_favorites">Mis favoritos</string>
     <string name="home_box_by_categories">Por categorías</string>
 
     <!-- MY PRODUCTS -->
-    <string name="my_products_toolbar">Mis productos</string>
+    <string name="my_products_toolbar">Mi lista principal</string>
     <string name="my_products_nothing_added">No hay nada añadido</string>
     <string name="my_products_add_btn">Añadir producto</string>
     <string name="my_products_advanced_btn">Más detalles</string>
@@ -54,7 +54,7 @@
     <!-- HOME FILTER CLASSIFICATION -->
     <string name="classification_dont_have_title">No tengo</string>
     <string name="classification_dont_have_empty">Esto está vacío.\nParece que lo tienes todo.</string>
-    <string name="classification_have_title">Tengo disponible</string>
+    <string name="classification_have_title">Tengo en casa</string>
     <string name="classification_have_empty">Esto está vacío.\nParece que no tienes de nada.</string>
     <string name="classification_favorites_title">Mis favoritos</string>
     <string name="classification_favorites_empty">Esto está vacío.\nParece que no tienes favoritos.</string>

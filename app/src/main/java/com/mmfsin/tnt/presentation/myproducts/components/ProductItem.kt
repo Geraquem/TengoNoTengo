@@ -67,7 +67,7 @@ fun ProductItem(
         Row(
             modifier = Modifier.clickable(onClick = { onProductClick(product.id) })
                 .background(if (product.favorite) YellowLight else White)
-                .padding(vertical = 12.dp, horizontal = 16.dp),
+                .padding(vertical = 6.dp, horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(

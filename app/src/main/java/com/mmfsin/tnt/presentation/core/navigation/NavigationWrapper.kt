@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mmfsin.tnt.presentation.createproduct.CreateAdvancedProductScreen
+import com.mmfsin.tnt.presentation.defaultproducts.DefaultProductsScreen
 import com.mmfsin.tnt.presentation.home.HomeScreen
 import com.mmfsin.tnt.presentation.myproducts.MyProductsScreen
 import com.mmfsin.tnt.presentation.productdetail.ProductDetailScreen
@@ -27,7 +28,8 @@ fun NavigationWrapper() {
             HomeScreen(
                 navigateToHomeClassification = { typeId ->
                     navController.navigate(MyProducts(typeId))
-                }
+                },
+                navigateToDefaultProducts = { navController.navigate(DefaultProducts) }
             )
         }
 
@@ -50,6 +52,12 @@ fun NavigationWrapper() {
             /** internamente procesa data y se lo pasa al viewmodel */
             CreateAdvancedProductScreen(
                 goBack = { navController.popBackStack() },
+            )
+        }
+
+        composable<DefaultProducts> {
+            DefaultProductsScreen(
+                goBack = { navController.popBackStack() }
             )
         }
     }

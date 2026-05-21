@@ -1,26 +1,26 @@
 package com.mmfsin.tnt.presentation.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,10 +30,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
@@ -43,93 +41,81 @@ import com.mmfsin.tnt.domain.models.HomeTypeClassification.MY_PRODUCTS
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.Black
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
+import com.mmfsin.tnt.presentation.core.theme.RedHard
 import com.mmfsin.tnt.presentation.core.theme.White
+import com.mmfsin.tnt.presentation.home.components.MainBox
+import com.mmfsin.tnt.presentation.home.components.ProductsBox
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPV() {
-    HomeContent(HomeStates(items = getHomeItems())) {}
+    HomeContent(HomeStates(items = getHomeItems()), {}, {})
 }
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToHomeClassification: (Int) -> Unit
+    navigateToHomeClassification: (Int) -> Unit,
+    navigateToDefaultProducts: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(uiState) { type -> navigateToHomeClassification(type) }
+    HomeContent(
+        uiState = uiState,
+        navigateToHomeClassification = { type -> navigateToHomeClassification(type) },
+        navigateToDefaultProducts = { navigateToDefaultProducts() }
+    )
 }
 
 @Composable
 fun HomeContent(
     uiState: HomeStates,
-    navigateToHomeClassification: (Int) -> Unit
+    navigateToHomeClassification: (Int) -> Unit,
+    navigateToDefaultProducts: () -> Unit
 ) {
     Scaffold(
         topBar = { Toolbar(text = R.string.app_complete_name, iconBackVisible = false, mainTitle = true) }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(innerPadding)
-                .padding(horizontal = 16.dp).background(GrayLight)
-        ) {
-
-            Spacer(Modifier.height(24.dp))
-
-            MainHomeBox { navigateToHomeClassification(MY_PRODUCTS.id) }
-
-            Spacer(Modifier.height(12.dp))
-
-            LazyVerticalGrid(
-                contentPadding = PaddingValues(vertical = 12.dp),
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+        CompositionLocalProvider(LocalOverscrollFactory provides null) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize()
+                    .background(GrayLight)
+                    .padding(innerPadding)
+                    .padding(horizontal = 16.dp)
             ) {
-                items(uiState.items) { item -> HomeBox(item) { navigateToHomeClassification(item.id) } }
+
+                item {
+                    Spacer(Modifier.height(24.dp))
+                    MainBox(navigateTo = { navigateToHomeClassification(MY_PRODUCTS.id) })
+                    Spacer(Modifier.height(16.dp))
+                }
+
+                item {
+                    val chunks = uiState.items.chunked(2)
+
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        chunks.forEach { rowItems ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                rowItems.forEach { item ->
+                                    Box(modifier = Modifier.weight(1f)) {
+                                        HomeBox(item) { navigateToHomeClassification(item.id) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                item {
+                    Spacer(Modifier.height(16.dp))
+                    ProductsBox(navigateTo = { navigateToDefaultProducts() })
+                    Spacer(Modifier.height(16.dp))
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun MainHomeBox(navigateTo: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxWidth()
-            .height(220.dp)
-            .shadow(
-                elevation = 4.dp,
-                shape = RoundedCornerShape(16.dp),
-                clip = false
-            )
-            .clip(RoundedCornerShape(16.dp))
-            .clickable(onClick = { navigateTo() })
-            .background(White),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(MY_PRODUCTS.pngBackground), null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        Box(modifier = Modifier.fillMaxSize().alpha(0.20f).background(Black))
-
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(Modifier.weight(1f))
-            Text(
-                text = stringResource(R.string.home_box_my_products),
-                style = MaterialTheme.typography.titleLarge,
-                color = White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
-            )
-            Spacer(Modifier.height(2.dp))
-            Text(
-                text = stringResource(R.string.home_box_my_products_all_i_have),
-                style = MaterialTheme.typography.bodySmall,
-                color = White,
-            )
-            Spacer(Modifier.height(24.dp))
         }
     }
 }
@@ -140,11 +126,12 @@ fun HomeBox(
     onClick: () -> Unit
 ) {
     Box(
-        Modifier.height(170.dp).shadow(
-            elevation = 6.dp,
-            shape = RoundedCornerShape(16.dp),
-            clip = false
-        )
+        Modifier.height(170.dp)
+            .shadow(
+                elevation = 4.dp,
+                shape = RoundedCornerShape(16.dp),
+                clip = false
+            )
             .clip(RoundedCornerShape(16.dp))
             .background(White)
             .clickable(onClick = { onClick() }),

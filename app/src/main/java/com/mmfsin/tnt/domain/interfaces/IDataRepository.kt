@@ -18,4 +18,6 @@ interface IDataRepository {
     suspend fun updateFavoriteIt(productId: String, isFavorite: Boolean)
     suspend fun updateCategory(productId: String, categoryId: Int)
     suspend fun deleteProduct(productId: String)
+
+    fun getDefaultProducts(): Flow<List<String>>
 }

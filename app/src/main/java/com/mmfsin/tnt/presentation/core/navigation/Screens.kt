@@ -13,3 +13,6 @@ data class ProductDetail(val id: String)
 
 @Serializable
 data class CreateAdvancedProduct(val name: String)
+
+@Serializable
+object DefaultProducts

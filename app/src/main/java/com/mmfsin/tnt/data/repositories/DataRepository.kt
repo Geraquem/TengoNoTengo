@@ -1,5 +1,7 @@
 package com.mmfsin.tnt.data.repositories
 
+import android.content.Context
+import com.mmfsin.tnt.R
 import com.mmfsin.tnt.data.bbdd.daos.ProductsDAO
 import com.mmfsin.tnt.data.mappers.createSingleProduct
 import com.mmfsin.tnt.data.mappers.toProduct
@@ -7,11 +9,14 @@ import com.mmfsin.tnt.data.mappers.toProductDTO
 import com.mmfsin.tnt.data.mappers.toProductList
 import com.mmfsin.tnt.domain.interfaces.IDataRepository
 import com.mmfsin.tnt.domain.models.Product
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(
+    @ApplicationContext val context: Context,
     val productsDao: ProductsDAO
 ) : IDataRepository {
 
@@ -68,5 +73,10 @@ class DataRepository @Inject constructor(
 
     override suspend fun deleteProduct(productId: String) {
         productsDao.deleteProductById(productId)
+    }
+
+    override fun getDefaultProducts(): Flow<List<String>> {
+        val aliments = context.resources.getStringArray(R.array.default_aliments).toList()
+        return flowOf(aliments.sortedBy { it.lowercase() })
     }
 }

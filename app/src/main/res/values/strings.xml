@@ -15,6 +15,8 @@
     <string name="home_box_have">SÍ TENGO</string>
     <string name="home_box_favorites">Mis favoritos</string>
     <string name="home_box_by_categories">Por categorías</string>
+    <string name="home_box_default_products">Alimentos y productos</string>
+    <string name="home_box_default_products_description">Diferentes comidas que puedes apuntar para que no se te olvide comprar</string>
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mi lista principal</string>
@@ -60,6 +62,12 @@
     <string name="classification_favorites_empty">Esto está vacío.\nParece que no tienes favoritos.</string>
     <string name="classification_categories_title">Por categorías</string>
     <string name="classification_categories_empty">Esto está vacío.\nParece que no hay ninguna categoría asignada.</string>
+
+    <!-- DEFAULT PRODUCTS -->
+    <string name="df_products_title">Productos</string>
+    <string name="df_products_more_detail">Avanzado</string>
+    <string name="df_products_add">Añadir</string>
+    <string name="df_products_close">Cerrar</string>
 
     <!-- CATEGORIES -->
     <string name="category_none">Sin categoría</string>

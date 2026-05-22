@@ -20,13 +20,14 @@
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mi lista principal</string>
-    <string name="my_products_nothing_added">No hay nada añadido</string>
+    <string name="my_products_nothing_added">No tienes nada añadido a tu lista de la compra.\nAñade un producto manualmente o desde el apartado de Alimentos y productos.</string>
     <string name="my_products_add_btn">Añadir producto</string>
     <string name="my_products_advanced_btn">Más detalles</string>
     <string name="my_products_add_product">Añadir producto</string>
     <string name="my_products_have_it">¿Lo tengo?</string>
     <string name="my_products_where">Dónde encontrarlo:</string>
     <string name="my_products_sort_by">Ordenar por:</string>
+    <string name="my_products_empty_button">Ir a mi lista</string>
 
     <!-- FILTER DIALOG -->
     <string name="filter_dialog_title">Elige cómo ordenar tus cositas</string>
@@ -59,9 +60,9 @@
     <string name="classification_have_title">Tengo en casa</string>
     <string name="classification_have_empty">Esto está vacío.\nParece que no tienes de nada.</string>
     <string name="classification_favorites_title">Mis favoritos</string>
-    <string name="classification_favorites_empty">Esto está vacío.\nParece que no tienes favoritos.</string>
+    <string name="classification_favorites_empty">Esto está vacío.\nParece que todavía no tienes favoritos.</string>
     <string name="classification_categories_title">Por categorías</string>
-    <string name="classification_categories_empty">Esto está vacío.\nParece que no hay ninguna categoría asignada.</string>
+    <string name="classification_categories_empty">Esto está vacío.\nParece que no hay ninguna categoría asignada a ningún producto.</string>
 
     <!-- DEFAULT PRODUCTS -->
     <string name="df_products_title">Productos</string>

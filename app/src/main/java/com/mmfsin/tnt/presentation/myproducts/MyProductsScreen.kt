@@ -11,25 +11,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.FilterType
-import com.mmfsin.tnt.domain.models.getExampleProducts
 import com.mmfsin.tnt.presentation.core.components.LoadingFullScreen
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
 import com.mmfsin.tnt.presentation.myproducts.components.AddProduct
+import com.mmfsin.tnt.presentation.myproducts.components.EmptyScreen
 import com.mmfsin.tnt.presentation.myproducts.components.FilterDialog
 import com.mmfsin.tnt.presentation.myproducts.components.ProductList
 import com.mmfsin.tnt.presentation.myproducts.components.ProductListByCategories
@@ -40,8 +36,8 @@ fun MyProductsScreenPV() {
     MyProductsContent(
         MyProductsStates(
             isLoading = false,
-            products = getExampleProducts(),
-            //            products = emptyList(),
+            //            products = getExampleProducts(),
+            products = emptyList(),
             byCategories = true,
             filterDialogVisible = false,
             actualFilter = FilterType.DONT_HAVE_FIRST
@@ -116,10 +112,8 @@ fun MyProductsContent(
 
         Box(Modifier.fillMaxSize().background(GrayLight).padding(innerPadding)) {
             if (uiState.products.isEmpty()) {
-                Text(
-                    stringResource(uiState.emptyMessage),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.align(Alignment.Center).alpha(0.75f)
+                EmptyScreen(
+                    text = uiState.emptyMessage,
                 )
             } else {
                 CompositionLocalProvider(LocalOverscrollFactory provides null) {

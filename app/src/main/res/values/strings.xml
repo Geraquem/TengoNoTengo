@@ -20,7 +20,7 @@
 
     <!-- MY PRODUCTS -->
     <string name="my_products_toolbar">Mi lista principal</string>
-    <string name="my_products_nothing_added">No tienes nada añadido a tu lista de la compra.\nAñade un producto manualmente o desde el apartado de Alimentos y productos.</string>
+    <string name="my_products_nothing_added">No tienes nada añadido a tu lista de la compra.\n\nAñade un producto manualmente o desde el apartado de Alimentos y productos.</string>
     <string name="my_products_add_btn">Añadir producto</string>
     <string name="my_products_advanced_btn">Más detalles</string>
     <string name="my_products_add_product">Añadir producto</string>

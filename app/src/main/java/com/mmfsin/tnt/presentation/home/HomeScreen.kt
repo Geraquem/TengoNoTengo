@@ -38,10 +38,10 @@ import com.mmfsin.tnt.R
 import com.mmfsin.tnt.domain.models.HomeItem
 import com.mmfsin.tnt.domain.models.HomeTypeClassification.Companion.getHomeItems
 import com.mmfsin.tnt.domain.models.HomeTypeClassification.MY_PRODUCTS
+import com.mmfsin.tnt.presentation.core.components.LoadingFullScreen
 import com.mmfsin.tnt.presentation.core.components.Toolbar
 import com.mmfsin.tnt.presentation.core.theme.Black
 import com.mmfsin.tnt.presentation.core.theme.GrayLight
-import com.mmfsin.tnt.presentation.core.theme.RedHard
 import com.mmfsin.tnt.presentation.core.theme.White
 import com.mmfsin.tnt.presentation.home.components.MainBox
 import com.mmfsin.tnt.presentation.home.components.ProductsBox
@@ -49,7 +49,11 @@ import com.mmfsin.tnt.presentation.home.components.ProductsBox
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPV() {
-    HomeContent(HomeStates(items = getHomeItems()), {}, {})
+    HomeContent(
+        uiState = HomeStates(
+            items = getHomeItems()
+        ),
+        {}, {})
 }
 
 @Composable
@@ -113,9 +117,10 @@ fun HomeContent(
                 item {
                     Spacer(Modifier.height(16.dp))
                     ProductsBox(navigateTo = { navigateToDefaultProducts() })
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.height(64.dp))
                 }
             }
+            if (uiState.items.isEmpty()) LoadingFullScreen()
         }
     }
 }

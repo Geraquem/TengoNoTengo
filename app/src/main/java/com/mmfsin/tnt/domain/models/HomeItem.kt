@@ -33,7 +33,7 @@ enum class HomeTypeClassification(
         icon = { onClick -> SwitchHaveIt(true) { onClick() } },
         title = R.string.classification_have_title,
         emptyMessage = R.string.classification_have_empty,
-        pngBackground = R.drawable.png_kiwi
+        pngBackground = R.drawable.png_kiwis
     ),
     DONT_HAVE(
         id = 2,

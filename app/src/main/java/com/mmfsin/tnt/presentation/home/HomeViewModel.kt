@@ -18,16 +18,8 @@ class HomeViewModel @Inject constructor(
     fun getHomeItems() {
         executeUseCase(
             { getHomeItemsUseCase() },
-            { items ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        items = items
-                    )
-                }
-            },
+            { items -> _uiState.update { it.copy(items = items) } },
             {}
         )
     }
-
 }
